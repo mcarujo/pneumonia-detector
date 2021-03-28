@@ -12,22 +12,23 @@ from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              log_loss, precision_score, recall_score)
 
 
-def process_data(img_path, IMG_FORMAT):
+def process_data(img_path, IMAGE_RESOLUTION, BORDER):
     img = cv2.imread(img_path)
-    img = cv2.resize(img, IMG_FORMAT[:2])
+    img = cv2.resize(img, IMAGE_RESOLUTION[:2])
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = img / 255.0
-    img = np.reshape(img, IMG_FORMAT)
-
+    img = np.reshape(img, IMAGE_RESOLUTION)
+    img = img[BORDER:IMAGE_RESOLUTION[0]-BORDER,
+              BORDER:IMAGE_RESOLUTION[0]-BORDER]
     return img
 
 
-def compose_dataset(df, IMG_FORMAT):
+def compose_dataset(df, IMAGE_RESOLUTION, BORDER):
     data = []
     labels = []
 
     for full_path, flag in df.sample(frac=1).values:
-        data.append(process_data(full_path, IMG_FORMAT))
+        data.append(process_data(full_path, IMAGE_RESOLUTION, BORDER))
         labels.append(flag)
 
     return np.array(data), np.array(labels)

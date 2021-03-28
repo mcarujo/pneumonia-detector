@@ -45,6 +45,6 @@ Trainable params: 451,641
 Non-trainable params: 0
 _________________________________________________________________
 
-Epoch 29/100
+Epoch 23/100
 =================================================================
-loss: 0.1522 - accuracy: 0.9412 - val_loss: 0.2439 - val_accuracy: 0.8958
+loss: 0.1469 - accuracy: 0.9405 - val_loss: 0.2463 - val_accuracy: 0.9151
