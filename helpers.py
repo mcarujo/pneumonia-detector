@@ -56,7 +56,7 @@ def plot_training(history, path):
     )
     fig.update_layout(title="Training", xaxis_title="Epochs",
                       yaxis_title="Accuracy")
-    fig.write_image(path + '\\train_graph.png')
+    fig.write_image(path + '/train_graph.png')
     fig.show()
 
 
@@ -82,9 +82,9 @@ def metrics(y_true, y_pred_class, y_pred, path):
     y = ["Predict 0", "Predict 1"]
 
     fig = ff.create_table([header, score], height_constant=20)
-    fig.write_image(path + '\metrics.png')
+    fig.write_image(path + '/metrics.png')
     fig.show()
 
     fig = ff.create_annotated_heatmap(z=mc, x=x, y=y, colorscale="Blues")
-    fig.write_image(path+'\confusion_matrix.png')
+    fig.write_image(path+'/confusion_matrix.png')
     fig.show()
