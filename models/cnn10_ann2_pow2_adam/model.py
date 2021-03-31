@@ -1,12 +1,11 @@
+"""
+This file is responsible to define the convolutional neural network that will be used as model, which is returned by a function.  
+"""
+
+from tensorflow.keras.layers import (Conv2D, Dense, Dropout, Flatten,
+                                     MaxPooling2D)
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.layers import (
-    Dense,
-    Conv2D,
-    MaxPooling2D,
-    Flatten,
-    Dropout,
-)
 
 
 def cnn10_ann2_pow2_adam(IMG_FORMAT):
