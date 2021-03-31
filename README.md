@@ -1,6 +1,6 @@
 # Pneumonia Detector (X-Ray)
-This project is a final project of my specialization in Data Science. 
-Using the CNN for classify chest X-ray image between healthy and pneumonia. 
+This project is the final project of my specialization in Data Science. Using the CNN to classify chest X-ray image between healthy and pneumonia.
+ 
 
 # Dataset
 ![no text](https://i.imgur.com/jZqpV51.png)
