@@ -1,4 +1,6 @@
-# File just to save some functions to help keep the notebooks clean
+"""
+This file just to save some functions to help keep the notebooks clean.  
+"""
 import os
 
 import cv2
@@ -13,6 +15,13 @@ from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
 
 
 def process_data(img_path, IMAGE_RESOLUTION, BORDER):
+    """
+    This function wil get the image path, load it and then return it as object. 
+
+    :img_path string: The image path.
+    :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z). 
+    :BORDER int: The pixel that will be used to cut the image.
+    """
     img = cv2.imread(img_path)
     img = cv2.resize(img, IMAGE_RESOLUTION[:2])
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -24,18 +33,38 @@ def process_data(img_path, IMAGE_RESOLUTION, BORDER):
 
 
 def compose_dataset(df, IMAGE_RESOLUTION, BORDER):
+    """
+    This function will receive a DataFram which contains the information about the images that will be used as dataset. 
+
+    :df DataFrame: This DataFrame contains information about the images that will be used as dataset, including the image path.
+    :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z). 
+    :BORDER int: The pixel that will be used to cut the image.
+    """
+    # A list to save the image pixels
     data = []
+    # A list to save the image flags
     labels = []
 
+    # A for to go through the DataFrame shuffle
     for full_path, flag in df.sample(frac=1).values:
+        # Process the image with a auxiliary function and then save in the 'data'
         data.append(process_data(full_path, IMAGE_RESOLUTION, BORDER))
+        # Save the flag in the 'labels'
         labels.append(flag)
-
+    # Return both, data and labels as numpy array
     return np.array(data), np.array(labels)
 
 
 def plot_training(history, path):
+    """
+    This function will receive the training information then return the image and save in a path. 
+
+    :history TensorFlowHistory: A object which contains the training information.
+    :path string: The path to save the graph. 
+    """
+    # Creating the plotly figure object
     fig = go.Figure()
+    # Adding accuracy line
     fig.add_trace(
         go.Scatter(
             x=np.arange(len(history.history["accuracy"])),
@@ -45,6 +74,7 @@ def plot_training(history, path):
             name="accuracy",
         )
     )
+    # Adding val_accuracy line
     fig.add_trace(
         go.Scatter(
             x=np.arange(len(history.history["val_accuracy"])),
@@ -54,13 +84,25 @@ def plot_training(history, path):
             name="val_accuracy",
         )
     )
+    # Formating the graph
     fig.update_layout(title="Training", xaxis_title="Epochs",
                       yaxis_title="Accuracy")
+    # Saving the image in png
     fig.write_image(path + '/train_graph.png')
+    # Showing the image
     fig.show()
 
 
 def metrics(y_true, y_pred_class, y_pred, path):
+    """
+    This function will receive the real labels and the predictions to generate metrics then return the image and save in a path. 
+
+    :y_true list: A list with the real labels [int].
+    :y_pred_class list: A list with the classes predicted [int]. 
+    :y_pred list: A list with the probability of both classes [[float,float]]. 
+    :path string: The path to save the graph. 
+    """
+    # Generating metrics with scikit-learn
     ac = accuracy_score(y_true, y_pred)
     ll = log_loss(y_true, y_pred_class)
     f1 = f1_score(y_true, y_pred, zero_division=1)
@@ -68,6 +110,7 @@ def metrics(y_true, y_pred_class, y_pred, path):
     mc = confusion_matrix(y_true, y_pred)
     rc = recall_score(y_true, y_pred)
 
+    # Setting the labels for confusion matrix and metrics tables
     header = ["Metric", "Accuracy", "Loss(log)", "F1", "Precision", "Recall"]
     score = [
         "Score",
@@ -77,14 +120,19 @@ def metrics(y_true, y_pred_class, y_pred, path):
         round(ps, 3),
         round(rc, 3),
     ]
+    x = ["Real Normal", "Real Pneumonia"]
+    y = ["Predict Normal", "Predict Pneumonia"]
 
-    x = ["Real 0", "Real 1"]
-    y = ["Predict 0", "Predict 1"]
-
+    # Creating the metrics table
     fig = ff.create_table([header, score], height_constant=20)
+    # Saving the image in png
     fig.write_image(path + '/metrics.png')
+    # Showing the image
     fig.show()
 
+    # Creating the confusion matrix
     fig = ff.create_annotated_heatmap(z=mc, x=x, y=y, colorscale="Blues")
+    # Saving the image in png
     fig.write_image(path+'/confusion_matrix.png')
+    # Showing the image
     fig.show()
