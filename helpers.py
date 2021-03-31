@@ -22,11 +22,17 @@ def process_data(img_path, IMAGE_RESOLUTION, BORDER):
     :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z). 
     :BORDER int: The pixel that will be used to cut the image.
     """
+    # Read the image
     img = cv2.imread(img_path)
+    # Resize the image
     img = cv2.resize(img, IMAGE_RESOLUTION[:2])
+    # Transform the color to grayscale
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # Scale the image between zero and one
     img = img / 255.0
+    # Reshape the image
     img = np.reshape(img, IMAGE_RESOLUTION)
+    # Cut the image
     img = img[BORDER:IMAGE_RESOLUTION[0]-BORDER,
               BORDER:IMAGE_RESOLUTION[0]-BORDER]
     return img
