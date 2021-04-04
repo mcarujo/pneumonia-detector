@@ -1,0 +1,299 @@
+#!/usr/bin/env python
+# coding: utf-8
+# Python's libs
+import shap
+from data_processing import DataProcessing
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import (Conv2D, Dense, Dropout, Flatten,
+                                     MaxPooling2D)
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+from tensorflow import keras
+from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
+                             log_loss, precision_score, recall_score)
+from plotly import graph_objects as go
+import glob
+import logging
+import os
+import warnings
+
+# Tools libs
+import cv2
+import joblib
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+class ModelTrain:
+    def __init__(self):
+        """
+        Constructor setting some local variables and dataset loading.
+        """
+        DATASET_DIR = "../data/data_image.csv"
+        self.dataset = pd.read_csv(DATASET_DIR)
+        self.data = DataProcessing()
+        self.load_datasets()
+
+    def load_datasets(self):
+        """
+        Load the time series from a csv then Impute, Transform and Clean.
+        """
+
+        # Creating dataset
+        train_set = self.dataset[self.dataset.kind ==
+                                 "train"][["full_path", "flag"]]
+        test_set = self.dataset[self.dataset.kind ==
+                                "test"][["full_path", "flag"]]
+        val_set = self.dataset[self.dataset.kind ==
+                               "val"][["full_path", "flag"]]
+
+        # Creating X and y variables
+        self.X_train, self.y_train = self.data.compose_dataset(
+            train_set)
+        self.X_test, self.y_test = self.data.compose_dataset(
+            test_set)
+        self.X_val, self.y_val = self.data.compose_dataset(val_set)
+
+        # Infortmations
+        logging.info('Train data shape: {}, Labels shape: {}'.format(
+            self.X_train.shape, self.y_train.shape))
+        logging.info('Test data shape: {}, Labels shape: {}'.format(
+            self.X_test.shape, self.y_test.shape))
+        logging.info('Validation data shape: {}, Labels shape: {}'.format(
+            self.X_val.shape, self.y_val.shape))
+
+    def run(self):
+        logging.info(f'Runing the train process.')
+        # Define ImageDataGenerator
+        datagen = ImageDataGenerator(
+            rotation_range=20,
+            zoom_range=0.3,
+            width_shift_range=0.3,
+            height_shift_range=0.3,
+            horizontal_flip=False,
+            vertical_flip=False,
+        )
+        # Fit generator on our train features
+        datagen.fit(self.X_train)
+        # Models
+        model = self.build_model(
+            self.data.IMG_FORMAT)
+        # EarlyStopping to stop our trainig process when is not nescessary keep training
+        callback = EarlyStopping(monitor="loss", patience=3)
+        # Define class_weight
+        class_weight = {0: 1.95, 1: 0.67}
+        # Model fit return the historical metrics of it
+        history = model.fit(
+            datagen.flow(self.X_train, self.y_train, batch_size=5),
+            validation_data=(self.X_test, self.y_test),
+            epochs=50,
+            verbose=1,
+            callbacks=[callback],
+            class_weight=class_weight
+        )
+        # Predicting the classes model
+        y_pred = model.predict(self.X_test, batch_size=4)
+        # Predicting the classes model
+        y_pred_class = y_pred.round()
+        # Saving the model
+        model.save("model")
+
+        self.save_plot_training(history)
+        # self.shap_values(model)
+
+        return self.generate_metrics(
+            self.y_test,
+            y_pred.reshape(1, -1)[0],
+            y_pred_class.reshape(1, -1)[0].astype(int)
+        )
+
+    def build_model(self, IMG_FORMAT):
+        model = Sequential()
+        model.add(
+            Conv2D(
+                filters=10,
+                kernel_size=(7, 7),
+                padding="same",
+                activation="relu",
+                input_shape=IMG_FORMAT,
+            )
+        )
+        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(Conv2D(filters=20, kernel_size=(5, 5),
+                         padding="same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(Conv2D(filters=30, kernel_size=(3, 3),
+                         padding="same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Conv2D(filters=40, kernel_size=(3, 3),
+                         padding="same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Conv2D(filters=50, kernel_size=(3, 3),
+                         padding="same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Conv2D(filters=60, kernel_size=(3, 3),
+                         padding="same", activation="relu"))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Flatten())
+        model.add(Dense(200, activation="relu"))
+        model.add(Dropout(0.2))
+        model.add(Dense(100, activation="relu"))
+        model.add(Dropout(0.2))
+        model.add(Dense(50, activation="relu"))
+        model.add(Dropout(0.2))
+        model.add(Dense(1, activation="sigmoid"))
+        model.compile(loss="binary_crossentropy",
+                      optimizer="adamax", metrics=["accuracy"])
+        return model
+
+    def generate_metrics(self, y_true, y_pred_class, y_pred):
+        """
+        This function will receive the real labels and the predictions to generate metrics then return the image and save in a path. 
+
+        :y_true list: A list with the real labels [int].
+        :y_pred_class list: A list with the classes predicted [int]. 
+        :y_pred list: A list with the probability of both classes [[float,float]]. 
+        """
+        # Generating metrics with scikit-learn
+        ac = accuracy_score(y_true, y_pred)
+        ll = log_loss(y_true, y_pred_class)
+        f1 = f1_score(y_true, y_pred, zero_division=1)
+        ps = precision_score(y_true, y_pred)
+        rc = recall_score(y_true, y_pred)
+
+        logging.info(f'Training results')
+        logging.info(f'Accuracy -> {ac}.')
+        logging.info(f'Log loss -> {ll}.')
+        logging.info(f'F1 score -> {f1}.')
+        logging.info(f'Precision -> {ps}.')
+        logging.info(f'Recall -> {rc}.')
+
+        return {'ac': ac, 'll': ll, 'f1': f1, 'ps': ps, 'rc': rc}
+
+    def save_plot_training(self, history):
+        """
+        This function will receive the training information then save in a path. 
+
+        :history TensorFlowHistory: A object which contains the training information.
+        """
+        # Creating the plotly figure object
+        fig = go.Figure()
+        # Adding accuracy line
+        fig.add_trace(
+            go.Scatter(
+                x=np.arange(len(history.history["accuracy"])),
+                y=history.history["accuracy"],
+                text=np.arange(len(history.history["accuracy"])),
+                mode="lines",
+                name="accuracy",
+            )
+        )
+        # Adding val_accuracy line
+        fig.add_trace(
+            go.Scatter(
+                x=np.arange(len(history.history["val_accuracy"])),
+                text=np.arange(len(history.history["val_accuracy"])),
+                y=history.history["val_accuracy"],
+                mode="lines",
+                name="val_accuracy",
+            )
+        )
+        # Formating the graph
+        fig.update_layout(title="Training", xaxis_title="Epochs",
+                          yaxis_title="Accuracy")
+        # Saving the image in png
+        fig.write_image('static/train/train_graph.png')
+
+    def shap_values(self, model):
+        """
+        This function will receive the model trained, create the Explainer and save in a path. 
+
+        :model: The trained model.
+        """
+        print('shap.DeepExplainer')
+        e = shap.DeepExplainer(model, self.X_val)
+
+        print('e.shap_values')
+        shap_values = e.shap_values(self.X_val)
+
+        print('shap.image_plot')
+        # Plot the image explaining the predictions
+        fig = shap.image_plot(shap_values, self.X_val,
+                              show=False, matplotlib=True)
+
+        # Saving the image
+        print('fig.savefig')
+        fig.savefig('/static/train/shap_graph.png')
+
+
+class ModelPredict:
+    def __init__(self):
+        """
+        Constructor loading model and dataset loading.
+        """
+        logging.info(f'Initializing ModelPredict.')
+        self.model = keras.models.load_model('model')
+        self.data = DataProcessing()
+
+    def predict(self, image_path):
+        """
+        Function to prediction the input and return the prediction.
+
+        :image_path str: Image path to be predicted.
+        """
+        logging.info(f'Predicting a image.')
+        # Image
+        img = self.data.process_data(image_path, False)
+        img = np.array(img).reshape(1, *self.data.IMG_FORMAT)
+
+        # self.shap_values(img, image_path)
+        return self.model.predict(img)
+
+    def shap_values(self, img, image_path):
+        """
+        Function to explain the prediction and save the shap file in the path.
+
+        :image_path str: Image path to be predicted.
+        """
+        # Creating a string list with the labels
+        labels = ["Real Pneumonia" if y else "Real Normal" for y in y_val]
+        labels = pd.DataFrame(labels, columns=["Labels"])
+
+        # Getting the predictions using numpy
+        predictions = model.predict(img).round().reshape(-1, 1).astype(int)
+        labels["Predictions"] = [
+            "Predicted Pneumonia" if y else "Predicted Normal" for y in predictions
+        ]
+        labels["Print Real - Predicted"] = labels["Labels"].str.cat(
+            labels["Predictions"], sep=" - "
+        )
+
+        # The columns with both information
+        labels_to_print = labels["Print Real - Predicted"].values.reshape(
+            -1, 1)
+        dataset_shap = joblib.load('model/shap_dataset.joblib')
+
+        # DeepExplainer tensorflow
+        explainer = shap.DeepExplainer(self.model, dataset_shap)
+
+        # Shap Values
+        shap_values = explainer.shap_values(img)
+
+        # Plot the image explaining the predictions
+        fig = shap.image_plot(
+            shap_values, img, labels=labels_to_print, show=False)
+
+        # Saving the image
+        fig.savefig('/static/predict/shap_' + image_path)
+
+
+if __name__ == "__main__":
+    """
+    Model training test.
+    """
+    test = ModelTrain()
+    print(test.run())
+    test = ModelPredict()
+    print(test.predict('person1946_bacteria_4874.jpeg'))

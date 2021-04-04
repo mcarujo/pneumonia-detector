@@ -1,0 +1,177 @@
+2021-04-03 11:35:45.343 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-03 11:35:45.487 INFO app - train: Route train.
+2021-04-03 11:35:45.487 INFO app - train: Loading the dataset tools.
+2021-04-03 11:35:45.487 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-03 11:36:57.708 INFO model - load_datasets: Train data shape: (5216, 164, 164, 1), Labels shape: (5216,)
+2021-04-03 11:36:57.708 INFO model - load_datasets: Test data shape: (624, 164, 164, 1), Labels shape: (624,)
+2021-04-03 11:36:57.708 INFO model - load_datasets: Validation data shape: (16, 164, 164, 1), Labels shape: (16,)
+2021-04-03 11:36:57.708 INFO model - run: Runing the train process.
+2021-04-03 11:38:03.229 INFO builder_impl - copy_assets_to_destination_dir: Assets written to: model\assets
+2021-04-03 12:26:40.987 INFO _internal - _log:  * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+2021-04-03 17:00:17.870 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-03 17:00:21.237 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:00:21] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-03 17:00:21.253 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:00:21] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-03 17:00:21.735 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:00:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-04-03 17:00:25.184 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:00:25] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-03 17:00:25.470 INFO model - __init__: Initializing ModelPredict.
+2021-04-03 17:00:29.568 INFO model - predict: Predicting a image.
+2021-04-03 17:00:32.146 ERROR app - log_exception: Exception on /predict [GET]
+Traceback (most recent call last):
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\marco_carujo\Git\coronavirus-detector\app\app.py", line 83, in predict
+    prediction = model.predict(image_path)[0]
+  File "C:\Users\marco_carujo\Git\coronavirus-detector\app\model.py", line 252, in predict
+    return self.model.predict(img)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1629, in predict
+    tmp_batch_outputs = self.predict_function(iterator)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\def_function.py", line 894, in _call
+    return self._concrete_stateful_fn._call_flat(
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\function.py", line 555, in call
+    outputs = execute.execute(
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.UnknownError:  Failed to get convolution algorithm. This is probably because cuDNN failed to initialize, so try looking to see if a warning log message was printed above.
+	 [[node sequential/conv2d/Conv2D (defined at \Git\coronavirus-detector\app\model.py:252) ]] [Op:__inference_predict_function_2796]
+
+Function call stack:
+predict_function
+
+2021-04-03 17:00:32.147 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:00:32] "[35m[1mGET /predict?image_path=person1947_bacteria_4876.jpeg HTTP/1.1[0m" 500 -
+2021-04-03 17:01:27.890 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-03 17:01:29.403 INFO model - __init__: Initializing ModelPredict.
+2021-04-03 17:01:32.250 INFO model - predict: Predicting a image.
+2021-04-03 17:01:35.239 INFO app - predict: Image : person1947_bacteria_4876.jpeg - Prediction : [0.9666548]
+2021-04-03 17:01:35.247 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:35] "[37mGET /predict?image_path=person1947_bacteria_4876.jpeg HTTP/1.1[0m" 200 -
+2021-04-03 17:01:35.297 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:35] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-03 17:01:42.865 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:42] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-03 17:01:42.897 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:42] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-03 17:01:46.908 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:46] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-03 17:01:46.920 INFO model - __init__: Initializing ModelPredict.
+2021-04-03 17:01:49.343 INFO model - predict: Predicting a image.
+2021-04-03 17:01:49.479 INFO app - predict: Image : person1947_bacteria_4876.jpeg - Prediction : [0.9666548]
+2021-04-03 17:01:49.479 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:49] "[37mGET /predict?image_path=person1947_bacteria_4876.jpeg HTTP/1.1[0m" 200 -
+2021-04-03 17:01:49.519 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:49] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-03 17:01:55.894 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:01:55] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-03 17:01:57.547 INFO app - train: Route train.
+2021-04-03 17:01:57.547 INFO app - train: Loading the dataset tools.
+2021-04-03 17:01:57.547 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-03 17:02:01.547 INFO app - train: Route train.
+2021-04-03 17:02:01.547 INFO app - train: Loading the dataset tools.
+2021-04-03 17:02:01.547 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-03 17:03:20.159 INFO model - load_datasets: Train data shape: (5216, 164, 164, 1), Labels shape: (5216,)
+2021-04-03 17:03:20.159 INFO model - load_datasets: Test data shape: (624, 164, 164, 1), Labels shape: (624,)
+2021-04-03 17:03:20.159 INFO model - load_datasets: Validation data shape: (16, 164, 164, 1), Labels shape: (16,)
+2021-04-03 17:03:20.159 INFO model - run: Runing the train process.
+2021-04-03 17:03:22.182 INFO model - load_datasets: Train data shape: (5216, 164, 164, 1), Labels shape: (5216,)
+2021-04-03 17:03:22.183 INFO model - load_datasets: Test data shape: (624, 164, 164, 1), Labels shape: (624,)
+2021-04-03 17:03:22.183 INFO model - load_datasets: Validation data shape: (16, 164, 164, 1), Labels shape: (16,)
+2021-04-03 17:03:22.183 INFO model - run: Runing the train process.
+2021-04-03 17:06:07.097 INFO builder_impl - copy_assets_to_destination_dir: Assets written to: model\assets
+2021-04-03 17:06:18.504 INFO model - generate_metrics: Training results
+2021-04-03 17:06:18.504 INFO model - generate_metrics: Accuracy -> 0.8237179487179487.
+2021-04-03 17:06:18.504 INFO model - generate_metrics: Log loss -> 0.3761195456976659.
+2021-04-03 17:06:18.504 INFO model - generate_metrics: F1 score -> 0.8484848484848485.
+2021-04-03 17:06:18.504 INFO model - generate_metrics: Precision -> 0.9166666666666666.
+2021-04-03 17:06:18.504 INFO model - generate_metrics: Recall -> 0.7897435897435897.
+2021-04-03 17:06:18.504 INFO app - train: Returning results as HTML.
+2021-04-03 17:06:18.510 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:06:18] "[37mGET /train HTTP/1.1[0m" 200 -
+2021-04-03 17:06:18.880 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:06:18] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-03 17:06:18.941 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:06:18] "[33mGET /static/train_graph.png HTTP/1.1[0m" 404 -
+2021-04-03 17:06:19.032 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:06:19] "[33mGET /static/train_shape.jpeg HTTP/1.1[0m" 404 -
+2021-04-03 17:10:56.726 INFO builder_impl - copy_assets_to_destination_dir: Assets written to: model\assets
+2021-04-03 17:10:57.172 INFO model - generate_metrics: Training results
+2021-04-03 17:10:57.172 INFO model - generate_metrics: Accuracy -> 0.9134615384615384.
+2021-04-03 17:10:57.172 INFO model - generate_metrics: Log loss -> 0.2768717033536224.
+2021-04-03 17:10:57.172 INFO model - generate_metrics: F1 score -> 0.9318181818181818.
+2021-04-03 17:10:57.172 INFO model - generate_metrics: Precision -> 0.917910447761194.
+2021-04-03 17:10:57.172 INFO model - generate_metrics: Recall -> 0.9461538461538461.
+2021-04-03 17:10:57.172 INFO app - train: Returning results as HTML.
+2021-04-03 17:10:57.271 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 17:10:57] "[37mGET /train HTTP/1.1[0m" 200 -
+2021-04-03 19:30:54.263 INFO app - train: Route train.
+2021-04-03 19:30:54.263 INFO app - train: Loading the dataset tools.
+2021-04-03 19:30:54.264 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-03 19:32:12.155 INFO model - load_datasets: Train data shape: (5216, 164, 164, 1), Labels shape: (5216,)
+2021-04-03 19:32:12.155 INFO model - load_datasets: Test data shape: (624, 164, 164, 1), Labels shape: (624,)
+2021-04-03 19:32:12.155 INFO model - load_datasets: Validation data shape: (16, 164, 164, 1), Labels shape: (16,)
+2021-04-03 19:32:12.155 INFO model - run: Runing the train process.
+2021-04-03 20:14:36.729 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-03 20:14:58.624 INFO app - train: Route train.
+2021-04-03 20:14:58.624 INFO app - train: Loading the dataset tools.
+2021-04-03 20:14:58.624 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-03 20:16:12.044 INFO model - load_datasets: Train data shape: (5216, 164, 164, 1), Labels shape: (5216,)
+2021-04-03 20:16:12.044 INFO model - load_datasets: Test data shape: (624, 164, 164, 1), Labels shape: (624,)
+2021-04-03 20:16:12.044 INFO model - load_datasets: Validation data shape: (16, 164, 164, 1), Labels shape: (16,)
+2021-04-03 20:16:12.045 INFO model - run: Runing the train process.
+2021-04-03 20:16:17.742 ERROR app - log_exception: Exception on /train [GET]
+Traceback (most recent call last):
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\marco_carujo\Git\coronavirus-detector\app\app.py", line 52, in train
+    metrics = training.run()
+  File "C:\Users\marco_carujo\Git\coronavirus-detector\app\model.py", line 88, in run
+    history = model.fit(
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1100, in fit
+    tmp_logs = self.train_function(iterator)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\def_function.py", line 888, in _call
+    return self._stateless_fn(*args, **kwds)
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\function.py", line 2942, in __call__
+    return graph_function._call_flat(
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\function.py", line 555, in call
+    outputs = execute.execute(
+  File "C:\Users\marco_carujo\Anaconda3\lib\site-packages\tensorflow\python\eager\execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.UnknownError:  Failed to get convolution algorithm. This is probably because cuDNN failed to initialize, so try looking to see if a warning log message was printed above.
+	 [[node sequential/conv2d/Conv2D (defined at \Git\coronavirus-detector\app\model.py:88) ]] [Op:__inference_train_function_1459]
+
+Function call stack:
+train_function
+
+2021-04-03 20:16:17.745 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 20:16:17] "[35m[1mGET /train HTTP/1.1[0m" 500 -
+2021-04-03 20:16:50.519 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-03 20:16:50.619 INFO app - train: Route train.
+2021-04-03 20:16:50.620 INFO app - train: Loading the dataset tools.
+2021-04-03 20:16:50.620 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-03 20:17:56.568 INFO model - load_datasets: Train data shape: (5216, 164, 164, 1), Labels shape: (5216,)
+2021-04-03 20:17:56.568 INFO model - load_datasets: Test data shape: (624, 164, 164, 1), Labels shape: (624,)
+2021-04-03 20:17:56.568 INFO model - load_datasets: Validation data shape: (16, 164, 164, 1), Labels shape: (16,)
+2021-04-03 20:17:56.568 INFO model - run: Runing the train process.
+2021-04-03 20:24:30.150 INFO builder_impl - copy_assets_to_destination_dir: Assets written to: model\assets
+2021-04-03 20:24:37.415 INFO model - generate_metrics: Training results
+2021-04-03 20:24:37.416 INFO model - generate_metrics: Accuracy -> 0.9006410256410257.
+2021-04-03 20:24:37.416 INFO model - generate_metrics: Log loss -> 0.29199225353035313.
+2021-04-03 20:24:37.416 INFO model - generate_metrics: F1 score -> 0.9254807692307693.
+2021-04-03 20:24:37.416 INFO model - generate_metrics: Precision -> 0.8710407239819005.
+2021-04-03 20:24:37.416 INFO model - generate_metrics: Recall -> 0.9871794871794872.
+2021-04-03 20:24:37.417 INFO app - train: Returning results as HTML.
+2021-04-03 20:24:37.493 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 20:24:37] "[37mGET /train HTTP/1.1[0m" 200 -
+2021-04-03 20:24:37.872 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 20:24:37] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-03 20:24:37.938 INFO _internal - _log: 127.0.0.1 - - [03/Apr/2021 20:24:37] "[37mGET /static/train/train_graph.png HTTP/1.1[0m" 200 -

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mt-5">On this page will be reported the system logs.</h1> 
+
+<h4>The sytem log.</h4>
+<table class="table logging_window" style="text-align: left;">
+    <thead>
+      <tr>
+        <th scope="col">Log</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for log_line in log_lines %}
+            <tr>
+                <td>{{log_line}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

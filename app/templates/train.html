@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mt-5">Quick traning reporting...</h1> 
+
+<h4>Traning Results.</h4>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Metric</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for metric in metrics %}
+                <tr>
+                    <td>{{ metric[0] }}</td>
+                    <td>{{ metric[1]|round(3) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      <div>
+      <h4>Traning Graph</h4>
+      <img src="{{url_for('static', filename='train/train_graph.png')}}"/>
+    </div>
+    <!-- <div>
+      <h4>Shap for validation dataset (Real-Predicted) 16 samples.</h4>
+      <img src="{{url_for('static', filename='train_shape.jpeg')}}" style=" margin-top: -40%;z-index: -1;position: sticky; width: 55%"/>
+    </div> -->
+
+{% endblock %}
