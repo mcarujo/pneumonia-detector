@@ -20,17 +20,13 @@ def cnn5_ann5_fibonacci_adam(IMG_FORMAT):
         )
     )
     model.add(MaxPooling2D(pool_size=(3, 3)))
-    model.add(Conv2D(filters=13, kernel_size=(3, 3),
-                     padding="same", activation="relu"))
+    model.add(Conv2D(filters=13, kernel_size=(3, 3), padding="same", activation="relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(filters=21, kernel_size=(3, 3),
-                     padding="same", activation="relu"))
+    model.add(Conv2D(filters=21, kernel_size=(3, 3), padding="same", activation="relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(filters=34, kernel_size=(3, 3),
-                     padding="same", activation="relu"))
+    model.add(Conv2D(filters=34, kernel_size=(3, 3), padding="same", activation="relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(filters=55, kernel_size=(3, 3),
-                     padding="same", activation="relu"))
+    model.add(Conv2D(filters=55, kernel_size=(3, 3), padding="same", activation="relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
     model.add(Dense(144, activation="relu"))
@@ -41,6 +37,5 @@ def cnn5_ann5_fibonacci_adam(IMG_FORMAT):
     model.add(Dense(34, activation="relu"))
     model.add(Dropout(0.1))
     model.add(Dense(1, activation="sigmoid"))
-    model.compile(loss="binary_crossentropy",
-                  optimizer="adam", metrics=["accuracy"])
+    model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
     return model
