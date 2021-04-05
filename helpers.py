@@ -1,13 +1,8 @@
 """
 This file just to save some functions to help keep the notebooks clean.  
 """
-import os
-
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import seaborn as sns
 from plotly import figure_factory as ff
 from plotly import graph_objects as go
 from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
@@ -16,10 +11,10 @@ from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
 
 def process_data(img_path, IMAGE_RESOLUTION, BORDER):
     """
-    This function wil get the image path, load it and then return it as object. 
+    This function wil get the image path, load it and then return it as object.
 
     :img_path string: The image path.
-    :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z). 
+    :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z).
     :BORDER int: The pixel that will be used to cut the image.
     """
     # Read the image
@@ -33,17 +28,18 @@ def process_data(img_path, IMAGE_RESOLUTION, BORDER):
     # Reshape the image
     img = np.reshape(img, IMAGE_RESOLUTION)
     # Cut the image
-    img = img[BORDER:IMAGE_RESOLUTION[0]-BORDER,
-              BORDER:IMAGE_RESOLUTION[0]-BORDER]
+    img = img[
+        BORDER : IMAGE_RESOLUTION[0] - BORDER, BORDER : IMAGE_RESOLUTION[0] - BORDER
+    ]
     return img
 
 
 def compose_dataset(df, IMAGE_RESOLUTION, BORDER):
     """
-    This function will receive a DataFram which contains the information about the images that will be used as dataset. 
+    This function will receive a DataFram which contains the information about the images that will be used as dataset.
 
     :df DataFrame: This DataFrame contains information about the images that will be used as dataset, including the image path.
-    :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z). 
+    :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z).
     :BORDER int: The pixel that will be used to cut the image.
     """
     # A list to save the image pixels
@@ -63,10 +59,10 @@ def compose_dataset(df, IMAGE_RESOLUTION, BORDER):
 
 def plot_training(history, path):
     """
-    This function will receive the training information then return the image and save in a path. 
+    This function will receive the training information then return the image and save in a path.
 
     :history TensorFlowHistory: A object which contains the training information.
-    :path string: The path to save the graph. 
+    :path string: The path to save the graph.
     """
     # Creating the plotly figure object
     fig = go.Figure()
@@ -91,22 +87,21 @@ def plot_training(history, path):
         )
     )
     # Formating the graph
-    fig.update_layout(title="Training", xaxis_title="Epochs",
-                      yaxis_title="Accuracy")
+    fig.update_layout(title="Training", xaxis_title="Epochs", yaxis_title="Accuracy")
     # Saving the image in png
-    fig.write_image(path + '/train_graph.png')
+    fig.write_image(path + "/train_graph.png")
     # Showing the image
     fig.show()
 
 
 def metrics(y_true, y_pred_class, y_pred, path):
     """
-    This function will receive the real labels and the predictions to generate metrics then return the image and save in a path. 
+    This function will receive the real labels and the predictions to generate metrics then return the image and save in a path.
 
     :y_true list: A list with the real labels [int].
-    :y_pred_class list: A list with the classes predicted [int]. 
-    :y_pred list: A list with the probability of both classes [[float,float]]. 
-    :path string: The path to save the graph. 
+    :y_pred_class list: A list with the classes predicted [int].
+    :y_pred list: A list with the probability of both classes [[float,float]].
+    :path string: The path to save the graph.
     """
     # Generating metrics with scikit-learn
     ac = accuracy_score(y_true, y_pred)
@@ -132,13 +127,13 @@ def metrics(y_true, y_pred_class, y_pred, path):
     # Creating the metrics table
     fig = ff.create_table([header, score], height_constant=20)
     # Saving the image in png
-    fig.write_image(path + '/metrics.png')
+    fig.write_image(path + "/metrics.png")
     # Showing the image
     fig.show()
 
     # Creating the confusion matrix
     fig = ff.create_annotated_heatmap(z=mc, x=x, y=y, colorscale="Blues")
     # Saving the image in png
-    fig.write_image(path+'/confusion_matrix.png')
+    fig.write_image(path + "/confusion_matrix.png")
     # Showing the image
     fig.show()
