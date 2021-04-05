@@ -1,3 +1,14 @@
-data/test
-data/train
-*.ipynb
+/data/test/***
+/data/train/***
+helpers.py
+models
+images
+Machine Learning.ipynb
+README.md
+.git
+.ipynb_checkpoints/*
+Dockerfile
+.DS_Store
+.gitignore
+.dockerignore
+README.md

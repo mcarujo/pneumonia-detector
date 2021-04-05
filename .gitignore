@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 .vscode
 
+# Folders
+app/temp
+app/static
+
 # C extensions
 *.so
 
