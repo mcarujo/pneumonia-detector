@@ -32,5 +32,7 @@ An X-ray, or X-radiation, is a penetrating form of high-energy electromagnetic r
 
 # Application
 
+![Optional Text](./images/using_prediction.jpeg)
+
 It's was developed a web application to be possible select the X-ray images and predict them as well train the model.
 
