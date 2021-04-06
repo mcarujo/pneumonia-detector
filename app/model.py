@@ -252,7 +252,7 @@ class ModelPredict:
         prediction = self.model.predict(img)[0][0]
         self.shap_values(img, image_path, prediction)
         return prediction
-    
+
     def define_label(self, prediction):
         return "Predict Pneumonia" if prediction > 0.5 else "Predict Normal"
 
@@ -263,9 +263,7 @@ class ModelPredict:
         :image_path str: Image path to be predicted.
         """
         # Creating a string list with the labels
-        labels = np.array(
-           self.define_label(prediction)
-        ).reshape(-1, 1)
+        labels = np.array(self.define_label(prediction)).reshape(-1, 1)
 
         dataset_shap = joblib.load("model/shap_dataset.joblib")
 
