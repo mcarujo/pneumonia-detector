@@ -62,6 +62,6 @@ docker run -p 80:5000 mamcarujo/pneumonia-detector
 
 # User Interface
 <br />
-<img src="./images/update_image.jpeg" width="50%">
+<img src="./images/update_image.png" width="50%">
 <br />
 <img src="./images/using_prediction.jpeg" width="50%">
