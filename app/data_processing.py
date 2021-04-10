@@ -9,13 +9,67 @@ class DataProcessing:
         """
         self.IMAGE_RESOLUTION = (224, 224, 1)
         self.BORDER = 30
-        self.IMG_FORMAT = (
-            self.IMAGE_RESOLUTION[0] - 2 * self.BORDER,
-            self.IMAGE_RESOLUTION[1] - 2 * self.BORDER,
-            1,
-        )
 
-        # self.image = self.process_data(image_path, IMAGE_RESOLUTION, BORDER)
+    def process_data(self, img_path, to_train=True):
+        """
+        This function wil get the image path, load it and then return it as object.
+
+        :img_path string: The image path.
+        :to_train bool: Define the path for train and prediction.
+        """
+
+        # Read the image
+        if to_train:
+            img_path = "../" + img_path
+        else:
+            img_path = "temp/" + img_path
+
+        try:
+            # Read the image
+            img = cv2.imread(img_path)
+            # Resize the image
+            img = cv2.resize(img, self.IMAGE_RESOLUTION[:2])
+
+            # Transform the color to grayscale
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            # Identify lungs
+            img = lf.get_lungs(img, padding=0)
+
+            # Scale the image between zero and one
+            img = img / 255.0
+
+            # Resize the image
+            img = cv2.resize(img, self.IMAGE_RESOLUTION[:2])
+
+            # Reshape the image
+            img = np.reshape(img, self.IMAGE_RESOLUTION)
+
+            return img
+        except:
+            # Read the image again
+            img = cv2.imread(img_path)
+            # Resize the image
+            img = cv2.resize(img, self.IMAGE_RESOLUTION[:2])
+
+            # Transform the color to grayscale
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            # Scale the image between zero and one
+            img = img / 255.0
+
+            # Cut the image
+            img = img[
+                self.BORDER: self.IMAGE_RESOLUTION[0] - self.BORDER, self.BORDER: self.IMAGE_RESOLUTION[0] - self.BORDER
+            ]
+
+            # Resize the image
+            img = cv2.resize(img, self.IMAGE_RESOLUTION[:2])
+
+            # Reshape the image
+            img = np.reshape(img, self.IMAGE_RESOLUTION)
+
+            return img
 
     def process_data(self, img_path, to_train=True):
         """
@@ -41,8 +95,8 @@ class DataProcessing:
         img = np.reshape(img, self.IMAGE_RESOLUTION)
         # Cut the image
         img = img[
-            self.BORDER : self.IMAGE_RESOLUTION[0] - self.BORDER,
-            self.BORDER : self.IMAGE_RESOLUTION[0] - self.BORDER,
+            self.BORDER: self.IMAGE_RESOLUTION[0] - self.BORDER,
+            self.BORDER: self.IMAGE_RESOLUTION[0] - self.BORDER,
         ]
         return img
 
