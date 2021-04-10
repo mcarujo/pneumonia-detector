@@ -6,6 +6,7 @@ Using the CNN to classify chest X-ray image between healthy and pneumonia.
 
 # Dataset
 ![no text](https://i.imgur.com/jZqpV51.png)
+<img src="./images/region_of_interest.PNG" width="25%">
 ### Source
 ##### This dataset was taken from the Kaggle platform posted here in this [link](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia).
 

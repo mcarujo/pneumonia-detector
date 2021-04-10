@@ -3,6 +3,7 @@ This file just to save some functions to help keep the notebooks clean.
 """
 import cv2
 import numpy as np
+import lungs_finder as lf
 from plotly import figure_factory as ff
 from plotly import graph_objects as go
 from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
@@ -17,21 +18,53 @@ def process_data(img_path, IMAGE_RESOLUTION, BORDER):
     :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z).
     :BORDER int: The pixel that will be used to cut the image.
     """
-    # Read the image
-    img = cv2.imread(img_path)
-    # Resize the image
-    img = cv2.resize(img, IMAGE_RESOLUTION[:2])
-    # Transform the color to grayscale
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # Scale the image between zero and one
-    img = img / 255.0
-    # Reshape the image
-    img = np.reshape(img, IMAGE_RESOLUTION)
-    # Cut the image
-    img = img[
-        BORDER : IMAGE_RESOLUTION[0] - BORDER, BORDER : IMAGE_RESOLUTION[0] - BORDER
-    ]
-    return img
+
+    try:
+        # Read the image
+        img = cv2.imread(img_path)
+        # Resize the image
+        img = cv2.resize(img, IMAGE_RESOLUTION[:2])
+
+        # Transform the color to grayscale
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        # Identify lungs
+        img = lf.get_lungs(img, padding=0)
+
+        # Scale the image between zero and one
+        img = img / 255.0
+
+        # Resize the image
+        img = cv2.resize(img, IMAGE_RESOLUTION[:2])
+
+        # Reshape the image
+        img = np.reshape(img, IMAGE_RESOLUTION)
+
+        return img
+    except:
+        # Read the image again
+        img = cv2.imread(img_path)
+        # Resize the image
+        img = cv2.resize(img, IMAGE_RESOLUTION[:2])
+
+        # Transform the color to grayscale
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        # Scale the image between zero and one
+        img = img / 255.0
+
+        # Cut the image
+        img = img[
+            BORDER: IMAGE_RESOLUTION[0] - BORDER, BORDER: IMAGE_RESOLUTION[0] - BORDER
+        ]
+
+        # Resize the image
+        img = cv2.resize(img, IMAGE_RESOLUTION[:2])
+
+        # Reshape the image
+        img = np.reshape(img, IMAGE_RESOLUTION)
+
+        return img
 
 
 def compose_dataset(df, IMAGE_RESOLUTION, BORDER):
@@ -87,7 +120,8 @@ def plot_training(history, path):
         )
     )
     # Formating the graph
-    fig.update_layout(title="Training", xaxis_title="Epochs", yaxis_title="Accuracy")
+    fig.update_layout(title="Training", xaxis_title="Epochs",
+                      yaxis_title="Accuracy")
     # Saving the image in png
     fig.write_image(path + "/train_graph.png")
     # Showing the image
