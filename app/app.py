@@ -38,10 +38,12 @@ def train():
     """
     Train process starting by a request.
     """
+
     logging.info("Route train.")
     # Loading the dataset tools
     logging.info("Loading the dataset tools.")
-    logging.info("Creating the ModelTrain class passing the dataset as argument.")
+    logging.info(
+        "Creating the ModelTrain class passing the dataset as argument.")
     training = ModelTrain()
     metrics = training.run()
 
@@ -77,17 +79,23 @@ def predict():
     """
     Prediction the next days.
     """
+
     model = ModelPredict()
     image_path = request.args["image_path"]
     prediction = model.predict(image_path)
-    label = model.define_label(prediction)
-    logging.info(f"Image : {image_path} - Prediction : {prediction}")
-    return render_template(
-        "predict.html",
-        accuracy=prediction,
-        class_=label,
-        filename=image_path,
-    )
+    if prediction:
+        label = model.define_label(prediction)
+        logging.info(f"Image : {image_path} - Prediction : {prediction}")
+        return render_template(
+            "predict.html",
+            accuracy=prediction,
+            class_=label,
+            filename=image_path,
+        )
+    else:
+        return render_template(
+            "no_prediction.html",
+        )
 
 
 if __name__ == "__main__":

@@ -38,9 +38,12 @@ class ModelTrain:
         """
 
         # Creating dataset
-        train_set = self.dataset[self.dataset.kind == "train"][["full_path", "flag"]]
-        test_set = self.dataset[self.dataset.kind == "test"][["full_path", "flag"]]
-        val_set = self.dataset[self.dataset.kind == "val"][["full_path", "flag"]]
+        train_set = self.dataset[self.dataset.kind ==
+                                 "train"][["full_path", "flag"]]
+        test_set = self.dataset[self.dataset.kind ==
+                                "test"][["full_path", "flag"]]
+        val_set = self.dataset[self.dataset.kind ==
+                               "val"][["full_path", "flag"]]
 
         # Creating X and y variables
         self.X_train, self.y_train = self.data.compose_dataset(train_set)
@@ -155,23 +158,28 @@ class ModelTrain:
         )
         model.add(MaxPooling2D(pool_size=(3, 3)))
         model.add(
-            Conv2D(filters=20, kernel_size=(5, 5), padding="same", activation="relu")
+            Conv2D(filters=20, kernel_size=(5, 5),
+                   padding="same", activation="relu")
         )
         model.add(MaxPooling2D(pool_size=(3, 3)))
         model.add(
-            Conv2D(filters=30, kernel_size=(3, 3), padding="same", activation="relu")
+            Conv2D(filters=30, kernel_size=(3, 3),
+                   padding="same", activation="relu")
         )
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(
-            Conv2D(filters=40, kernel_size=(3, 3), padding="same", activation="relu")
+            Conv2D(filters=40, kernel_size=(3, 3),
+                   padding="same", activation="relu")
         )
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(
-            Conv2D(filters=50, kernel_size=(3, 3), padding="same", activation="relu")
+            Conv2D(filters=50, kernel_size=(3, 3),
+                   padding="same", activation="relu")
         )
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(
-            Conv2D(filters=60, kernel_size=(3, 3), padding="same", activation="relu")
+            Conv2D(filters=60, kernel_size=(3, 3),
+                   padding="same", activation="relu")
         )
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Flatten())
@@ -271,7 +279,8 @@ class ModelTrain:
 
         # Plot the image explaining the predictions
         logging.info(f"Creating the shap image.")
-        fig = shap.image_plot(shap_values, self.X_val, show=False, matplotlib=True)
+        fig = shap.image_plot(shap_values, self.X_val,
+                              show=False, matplotlib=True)
 
         # Saving the image
         logging.info(f"Saving shap graph at 'static/train/shap_graph.png'.")
@@ -299,6 +308,10 @@ class ModelPredict:
 
         # Image processing
         img = self.data.process_data(image_path, False)
+
+        if img is False:
+            return False
+
         img = np.array(img).reshape(1, *self.data.IMG_FORMAT)
 
         # Predicting the image

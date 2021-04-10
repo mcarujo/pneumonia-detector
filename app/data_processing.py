@@ -47,6 +47,9 @@ class DataProcessing:
 
             return img
         except:
+            if to_train is False:
+                return False
+
             # Read the image again
             img = cv2.imread(img_path)
             # Resize the image
