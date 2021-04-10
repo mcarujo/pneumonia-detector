@@ -27,13 +27,14 @@ class ModelTrain:
         """
         Constructor setting some local variables and dataset loading.
         """
+
         DATASET_DIR = "../data/data_image.csv"
         self.dataset = pd.read_csv(DATASET_DIR)
         self.data = DataProcessing()
 
     def load_datasets(self):
         """
-        Load the time series from a csv then Impute, Transform and Clean.
+        Load the dataset with the images paths and then save the image as variables.
         """
 
         # Creating dataset
@@ -64,8 +65,15 @@ class ModelTrain:
         )
 
     def run(self):
+        """
+        Start the traning process and then return the results.
+        """
+
         logging.info(f"Runing the train process.")
+        # Load the dataset
+        logging.info(f"Loading the dataset.")
         self.load_datasets()
+
         # Define ImageDataGenerator
         datagen = ImageDataGenerator(
             rotation_range=20,
@@ -75,15 +83,22 @@ class ModelTrain:
             horizontal_flip=False,
             vertical_flip=False,
         )
+
         # Fit generator on our train features
         datagen.fit(self.X_train)
+
         # Models
+        logging.info(f"Loading the model.")
         model = self.build_model(self.data.IMG_FORMAT)
+
         # EarlyStopping to stop our trainig process when is not nescessary keep training
         callback = EarlyStopping(monitor="loss", patience=3)
+
         # Define class_weight
         class_weight = {0: 1.95, 1: 0.67}
+
         # Model fit return the historical metrics of it
+        logging.info(f"Starting the fit.")
         history = model.fit(
             datagen.flow(self.X_train, self.y_train, batch_size=5),
             validation_data=(self.X_test, self.y_test),
@@ -92,17 +107,28 @@ class ModelTrain:
             callbacks=[callback],
             class_weight=class_weight,
         )
+
+        logging.info(f"Generating metrics.")
         # Predicting the classes model
         y_pred = model.predict(self.X_test, batch_size=4)
+
         # Predicting the classes model
         y_pred_class = y_pred.round()
+
         # Saving the model
+        logging.info(f"Saving the model.")
         model.save("model")
 
+        # Saving training graph
+        logging.info(f"Save the plot training.")
         self.save_plot_training(history)
 
+        # Saving shap values for validation dataset
+        logging.info(f"Using Shap to explain the predictions.")
         self.shap_values(model)
 
+        # Returning traning metrics
+        logging.info(f"Returning metrics.")
         return self.generate_metrics(
             self.y_test,
             y_pred.reshape(1, -1)[0],
@@ -110,7 +136,14 @@ class ModelTrain:
         )
 
     def build_model(self, IMG_FORMAT):
+        """
+        Function to return the convolutional neural network.
+        """
+
+        # Empty convolutional neural network
         model = Sequential()
+
+        # Convolutional layers with the input layer
         model.add(
             Conv2D(
                 filters=10,
@@ -142,16 +175,23 @@ class ModelTrain:
         )
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Flatten())
+
+        # Dense layers
         model.add(Dense(200, activation="relu"))
         model.add(Dropout(0.2))
         model.add(Dense(100, activation="relu"))
         model.add(Dropout(0.2))
         model.add(Dense(50, activation="relu"))
         model.add(Dropout(0.2))
+
+        # Output layer
         model.add(Dense(1, activation="sigmoid"))
+
+        # Model compile and optimizer
         model.compile(
-            loss="binary_crossentropy", optimizer="adamax", metrics=["accuracy"]
+            loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"]
         )
+
         return model
 
     def generate_metrics(self, y_true, y_pred_class, y_pred):
@@ -162,6 +202,7 @@ class ModelTrain:
         :y_pred_class list: A list with the classes predicted [int].
         :y_pred list: A list with the probability of both classes [[float,float]].
         """
+
         # Generating metrics with scikit-learn
         ac = accuracy_score(y_true, y_pred)
         ll = log_loss(y_true, y_pred_class)
@@ -184,6 +225,7 @@ class ModelTrain:
 
         :history TensorFlowHistory: A object which contains the training information.
         """
+
         # Creating the plotly figure object
         fig = go.Figure()
         # Adding accuracy line
@@ -211,6 +253,7 @@ class ModelTrain:
             title="Training", xaxis_title="Epochs", yaxis_title="Accuracy"
         )
         # Saving the image in png
+        logging.info(f"Saving train graph at 'static/train/train_graph.png'.")
         fig.write_image("static/train/train_graph.png")
 
     def shap_values(self, model):
@@ -219,14 +262,19 @@ class ModelTrain:
 
         :model: The trained model.
         """
+
+        logging.info(f"Creating the DeepExplainer.")
         e = shap.DeepExplainer(model, self.X_val)
 
+        logging.info(f"Creating the shap values.")
         shap_values = e.shap_values(self.X_val)
 
         # Plot the image explaining the predictions
+        logging.info(f"Creating the shap image.")
         fig = shap.image_plot(shap_values, self.X_val, show=False, matplotlib=True)
 
         # Saving the image
+        logging.info(f"Saving shap graph at 'static/train/shap_graph.png'.")
         plt.savefig("/static/train/shap_graph.png")
 
 
@@ -235,36 +283,58 @@ class ModelPredict:
         """
         Constructor loading model and dataset loading.
         """
+
         logging.info(f"Initializing ModelPredict.")
         self.model = keras.models.load_model("model")
         self.data = DataProcessing()
 
     def predict(self, image_path):
         """
-        Function to prediction the input and return the prediction.
+        Function to prediction the input and return the prediction and the explanation.
 
         :image_path str: Image path to be predicted.
         """
-        logging.info(f"Predicting a image.")
-        # Image
+
+        logging.info(f"Predicting an image: {image_path}.")
+
+        # Image processing
         img = self.data.process_data(image_path, False)
         img = np.array(img).reshape(1, *self.data.IMG_FORMAT)
+
+        # Predicting the image
         prediction = self.model.predict(img)[0][0]
+        logging.info(f"The image: {image_path} was predict as: {prediction}.")
+
+        # Explaining the image
+        logging.info(
+            f"Explaining the prediction of the image: {image_path} that was predict as: {prediction}."
+        )
         self.shap_values(img, image_path, prediction)
+
         return prediction
 
     def define_label(self, prediction):
+        """
+        Function will get the prediction and tranform it as label.
+
+        :prediction float: The prediction probability to be Pneumonia.
+        """
+
         return "Predict Pneumonia" if prediction > 0.5 else "Predict Normal"
 
     def shap_values(self, img, image_path, prediction):
         """
         Function to explain the prediction and save the shap file in the path.
 
+        :img NumpyArray: Image already load as matrix.
         :image_path str: Image path to be predicted.
+        :prediction float: The prediction in probability.
         """
+
         # Creating a string list with the labels
         labels = np.array(self.define_label(prediction)).reshape(-1, 1)
 
+        # Loading the validation dataset
         dataset_shap = joblib.load("model/shap_dataset.joblib")
 
         # DeepExplainer tensorflow
