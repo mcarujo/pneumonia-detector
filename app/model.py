@@ -14,6 +14,7 @@ from sklearn.metrics import (
     recall_score,
 )
 from tensorflow import keras
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
 from tensorflow.keras.models import Sequential
@@ -92,7 +93,7 @@ class ModelTrain:
 
         # Models
         logging.info(f"Loading the model.")
-        model = self.build_model(self.data.IMG_FORMAT)
+        model = self.build_model(self.data.IMAGE_RESOLUTION)
 
         # EarlyStopping to stop our trainig process when is not nescessary keep training
         callback = EarlyStopping(monitor="loss", patience=3)
@@ -105,7 +106,7 @@ class ModelTrain:
         history = model.fit(
             datagen.flow(self.X_train, self.y_train, batch_size=5),
             validation_data=(self.X_test, self.y_test),
-            epochs=2,
+            epochs=5,
             verbose=1,
             callbacks=[callback],
             class_weight=class_weight,
@@ -138,25 +139,21 @@ class ModelTrain:
             y_pred_class.reshape(1, -1)[0].astype(int),
         )
 
-    def build_model(self, IMG_FORMAT):
+    def build_model(self, IMAGE_RESOLUTION):
         """
         Function to return the convolutional neural network.
         """
 
-        # Empty convolutional neural network
         model = Sequential()
 
-        # Convolutional layers with the input layer
-        model.add(
-            Conv2D(
-                filters=10,
-                kernel_size=(7, 7),
-                padding="same",
-                activation="relu",
-                input_shape=IMG_FORMAT,
-            )
-        )
+        model.add(Conv2D(filters=8, kernel_size=(7, 7), padding='same',
+                        activation='relu', input_shape=IMAGE_RESOLUTION))
+        model.add(Conv2D(filters=8, kernel_size=(7, 7),
+                        padding='same', activation='relu'))
         model.add(MaxPooling2D(pool_size=(3, 3)))
+
+
+<< << << < HEAD
         model.add(
             Conv2D(filters=20, kernel_size=(5, 5),
                    padding="same", activation="relu")
@@ -181,24 +178,42 @@ class ModelTrain:
             Conv2D(filters=60, kernel_size=(3, 3),
                    padding="same", activation="relu")
         )
+== == == =
+
+        model.add(Conv2D(filters=16, kernel_size=(5, 5),
+                        padding='same', activation='relu'))
+        model.add(Conv2D(filters=16, kernel_size=(5, 5),
+                        padding='same', activation='relu'))
+        model.add(MaxPooling2D(pool_size=(3, 3)))
+
+        model.add(Conv2D(filters=32, kernel_size=(3, 3),
+                        padding='same', activation='relu'))
+        model.add(Conv2D(filters=32, kernel_size=(3, 3),
+                        padding='same', activation='relu'))
         model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(Conv2D(filters=64, kernel_size=(3, 3),
+                        padding='same', activation='relu'))
+        model.add(Conv2D(filters=64, kernel_size=(3, 3),
+                        padding='same', activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(Conv2D(filters=128, kernel_size=(
+            3, 3), padding='same', activation='relu'))
+        model.add(Conv2D(filters=128, kernel_size=(
+            3, 3), padding='same', activation='relu'))
+>>>>>> > 156f3aaf444e265f2f0515f0e7b08b1cc2cb444a
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+
         model.add(Flatten())
 
-        # Dense layers
-        model.add(Dense(200, activation="relu"))
+        model.add(Dense(128, activation='relu'))
         model.add(Dropout(0.2))
-        model.add(Dense(100, activation="relu"))
-        model.add(Dropout(0.2))
-        model.add(Dense(50, activation="relu"))
-        model.add(Dropout(0.2))
-
-        # Output layer
         model.add(Dense(1, activation="sigmoid"))
 
-        # Model compile and optimizer
-        model.compile(
-            loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"]
-        )
+        optimizer = Adam(lr=0.0001, decay=1e-5)
+        model.compile(loss="binary_crossentropy",
+                    optimizer=optimizer, metrics=["accuracy"])
 
         return model
 
@@ -273,18 +288,18 @@ class ModelTrain:
 
         logging.info(f"Creating the DeepExplainer.")
         e = shap.DeepExplainer(model, self.X_val)
+        joblib.dump(self.X_val, 'model/shap_dataset.joblib')
 
         logging.info(f"Creating the shap values.")
         shap_values = e.shap_values(self.X_val)
 
         # Plot the image explaining the predictions
         logging.info(f"Creating the shap image.")
-        fig = shap.image_plot(shap_values, self.X_val,
-                              show=False, matplotlib=True)
+        fig = shap.image_plot(shap_values, self.X_val, show=False)
 
         # Saving the image
         logging.info(f"Saving shap graph at 'static/train/shap_graph.png'.")
-        plt.savefig("/static/train/shap_graph.png")
+        plt.savefig("static/train/shap_graph.png")
 
 
 class ModelPredict:
@@ -308,11 +323,17 @@ class ModelPredict:
 
         # Image processing
         img = self.data.process_data(image_path, False)
+<<<<<<< HEAD
 
         if img is False:
             return False
 
         img = np.array(img).reshape(1, *self.data.IMG_FORMAT)
+=======
+        if img is False:
+            return False
+        img = np.array(img).reshape(1, *self.data.IMAGE_RESOLUTION)
+>>>>>>> 156f3aaf444e265f2f0515f0e7b08b1cc2cb444a
 
         # Predicting the image
         prediction = self.model.predict(img)[0][0]
@@ -370,4 +391,4 @@ if __name__ == "__main__":
     test = ModelTrain()
     print(test.run())
     test = ModelPredict()
-    print(test.predict("person1946_bacteria_4874.jpeg"))
+    print(test.predict("NORMAL2-IM-1430-0001.jpeg"))
