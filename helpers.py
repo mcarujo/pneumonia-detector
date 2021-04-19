@@ -2,6 +2,7 @@
 This file just to save some functions to help keep the notebooks clean.  
 """
 import cv2
+import os
 import numpy as np
 import lungs_finder as lf
 from plotly import figure_factory as ff
@@ -123,7 +124,8 @@ def plot_training(history, path):
     fig.update_layout(title="Training", xaxis_title="Epochs",
                       yaxis_title="Accuracy")
     # Saving the image in png
-    fig.write_image(path + "/train_graph.png")
+    fig.write_image(os.path.join(path, 'train_graph.png'))
+
     # Showing the image
     fig.show()
 
@@ -161,13 +163,15 @@ def metrics(y_true, y_pred_class, y_pred, path):
     # Creating the metrics table
     fig = ff.create_table([header, score], height_constant=20)
     # Saving the image in png
-    fig.write_image(path + "/metrics.png")
+    fig.write_image(os.path.join(path, 'metrics.png'))
+
     # Showing the image
     fig.show()
 
     # Creating the confusion matrix
     fig = ff.create_annotated_heatmap(z=mc, x=x, y=y, colorscale="Blues")
     # Saving the image in png
-    fig.write_image(path + "/confusion_matrix.png")
+    fig.write_image(os.path.join(path, 'confusion_matrix.png'))
+
     # Showing the image
     fig.show()
