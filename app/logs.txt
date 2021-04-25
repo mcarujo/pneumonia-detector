@@ -1,2 +1,15 @@
 
 
+2021-04-25 13:55:49.612 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-25 13:55:57.519 INFO app - index: Route index.
+2021-04-25 13:55:57.523 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:55:57] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 13:55:57.707 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:55:57] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:40.932 INFO app - index: Route index.
+2021-04-25 13:56:40.932 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:40] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 13:56:41.008 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:41] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:42.708 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:42] "[37mGET /dashboard HTTP/1.1[0m" 200 -
+2021-04-25 13:56:42.783 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:42] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:44.262 INFO app - index: Route index.
+2021-04-25 13:56:44.262 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:44] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 13:56:44.308 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:44] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:45.059 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:45] "[37mGET /dataset HTTP/1.1[0m" 200 -

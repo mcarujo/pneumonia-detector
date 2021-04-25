@@ -72,7 +72,7 @@ dataset_images.to_csv(os.path.join("..", "app", "data", "data_image.csv"), index
 # # PorfileReport
 
 
-profile = ProfileReport(dataset_images, title="Pandas Profiling Report")
+profile = ProfileReport(dataset_images, title="Image Dataset - Pneumonia Detector")
 
 
 profile.to_file(os.path.join("..", "app", "templates", "dataset.html"))
