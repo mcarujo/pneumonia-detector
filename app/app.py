@@ -33,6 +33,11 @@ def dashboard(lines=100):
     return render_template("dashboard.html", log_lines=last_lines)
 
 
+@app.route("/dataset")
+def dataset():
+    return render_template("dataset.html")
+
+
 @app.route("/train", methods=["GET", "POST"])
 def train():
     """
@@ -42,8 +47,7 @@ def train():
     logging.info("Route train.")
     # Loading the dataset tools
     logging.info("Loading the dataset tools.")
-    logging.info(
-        "Creating the ModelTrain class passing the dataset as argument.")
+    logging.info("Creating the ModelTrain class passing the dataset as argument.")
     training = ModelTrain()
     metrics = training.run()
 
