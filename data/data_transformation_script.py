@@ -66,6 +66,7 @@ grid = [
 
 dataset_images = pd.concat([creat_dataframe(*el) for el in grid])
 dataset_images.to_csv("data_image.csv", index=False)
+dataset_images.to_csv(os.path_join("..", "app", "data", "data_image.csv", index=False))
 dataset_images.head()
 
 
