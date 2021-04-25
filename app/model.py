@@ -1,4 +1,5 @@
 import logging
+import os
 
 import joblib
 import matplotlib.pyplot as plt
@@ -14,10 +15,10 @@ from sklearn.metrics import (
     recall_score,
 )
 from tensorflow import keras
-from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from data_processing import DataProcessing
@@ -26,47 +27,9 @@ from data_processing import DataProcessing
 class ModelTrain:
     def __init__(self):
         """
-        Constructor setting some local variables and dataset loading.
+        Constructor setting DataProcessing.
         """
-
-        DATASET_DIR = "../data/data_image.csv"
-        self.dataset = pd.read_csv(DATASET_DIR)
         self.data = DataProcessing()
-
-    def load_datasets(self):
-        """
-        Load the dataset with the images paths and then save the image as variables.
-        """
-
-        # Creating dataset
-        train_set = self.dataset[self.dataset.kind ==
-                                 "train"][["full_path", "flag"]]
-        test_set = self.dataset[self.dataset.kind ==
-                                "test"][["full_path", "flag"]]
-        val_set = self.dataset[self.dataset.kind ==
-                               "val"][["full_path", "flag"]]
-
-        # Creating X and y variables
-        self.X_train, self.y_train = self.data.compose_dataset(train_set)
-        self.X_test, self.y_test = self.data.compose_dataset(test_set)
-        self.X_val, self.y_val = self.data.compose_dataset(val_set)
-
-        # Infortmations
-        logging.info(
-            "Train data shape: {}, Labels shape: {}".format(
-                self.X_train.shape, self.y_train.shape
-            )
-        )
-        logging.info(
-            "Test data shape: {}, Labels shape: {}".format(
-                self.X_test.shape, self.y_test.shape
-            )
-        )
-        logging.info(
-            "Validation data shape: {}, Labels shape: {}".format(
-                self.X_val.shape, self.y_val.shape
-            )
-        )
 
     def run(self):
         """
@@ -76,7 +39,7 @@ class ModelTrain:
         logging.info(f"Runing the train process.")
         # Load the dataset
         logging.info(f"Loading the dataset.")
-        self.load_datasets()
+        self.data.load_datasets()
 
         # Define ImageDataGenerator
         datagen = ImageDataGenerator(
@@ -89,7 +52,7 @@ class ModelTrain:
         )
 
         # Fit generator on our train features
-        datagen.fit(self.X_train)
+        datagen.fit(self.data.X_train)
 
         # Models
         logging.info(f"Loading the model.")
@@ -104,9 +67,9 @@ class ModelTrain:
         # Model fit return the historical metrics of it
         logging.info(f"Starting the fit.")
         history = model.fit(
-            datagen.flow(self.X_train, self.y_train, batch_size=5),
-            validation_data=(self.X_test, self.y_test),
-            epochs=5,
+            datagen.flow(self.data.X_train, self.data.y_train, batch_size=5),
+            validation_data=(self.data.X_test, self.data.y_test),
+            epochs=2,
             verbose=1,
             callbacks=[callback],
             class_weight=class_weight,
@@ -114,7 +77,7 @@ class ModelTrain:
 
         logging.info(f"Generating metrics.")
         # Predicting the classes model
-        y_pred = model.predict(self.X_test, batch_size=4)
+        y_pred = model.predict(self.data.X_test, batch_size=4)
 
         # Predicting the classes model
         y_pred_class = y_pred.round()
@@ -134,7 +97,7 @@ class ModelTrain:
         # Returning traning metrics
         logging.info(f"Returning metrics.")
         return self.generate_metrics(
-            self.y_test,
+            self.data.y_test,
             y_pred.reshape(1, -1)[0],
             y_pred_class.reshape(1, -1)[0].astype(int),
         )
@@ -146,74 +109,61 @@ class ModelTrain:
 
         model = Sequential()
 
-        model.add(Conv2D(filters=8, kernel_size=(7, 7), padding='same',
-                        activation='relu', input_shape=IMAGE_RESOLUTION))
-        model.add(Conv2D(filters=8, kernel_size=(7, 7),
-                        padding='same', activation='relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3)))
-
-
-<< << << < HEAD
         model.add(
-            Conv2D(filters=20, kernel_size=(5, 5),
-                   padding="same", activation="relu")
+            Conv2D(
+                filters=8,
+                kernel_size=(7, 7),
+                padding="same",
+                activation="relu",
+                input_shape=IMAGE_RESOLUTION,
+            )
+        )
+        model.add(
+            Conv2D(filters=8, kernel_size=(7, 7), padding="same", activation="relu")
         )
         model.add(MaxPooling2D(pool_size=(3, 3)))
         model.add(
-            Conv2D(filters=30, kernel_size=(3, 3),
-                   padding="same", activation="relu")
+            Conv2D(filters=16, kernel_size=(5, 5), padding="same", activation="relu")
         )
-        model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(
-            Conv2D(filters=40, kernel_size=(3, 3),
-                   padding="same", activation="relu")
+            Conv2D(filters=16, kernel_size=(5, 5), padding="same", activation="relu")
         )
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(
-            Conv2D(filters=50, kernel_size=(3, 3),
-                   padding="same", activation="relu")
-        )
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(
-            Conv2D(filters=60, kernel_size=(3, 3),
-                   padding="same", activation="relu")
-        )
-== == == =
-
-        model.add(Conv2D(filters=16, kernel_size=(5, 5),
-                        padding='same', activation='relu'))
-        model.add(Conv2D(filters=16, kernel_size=(5, 5),
-                        padding='same', activation='relu'))
         model.add(MaxPooling2D(pool_size=(3, 3)))
 
-        model.add(Conv2D(filters=32, kernel_size=(3, 3),
-                        padding='same', activation='relu'))
-        model.add(Conv2D(filters=32, kernel_size=(3, 3),
-                        padding='same', activation='relu'))
+        model.add(
+            Conv2D(filters=32, kernel_size=(3, 3), padding="same", activation="relu")
+        )
+        model.add(
+            Conv2D(filters=32, kernel_size=(3, 3), padding="same", activation="relu")
+        )
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        model.add(Conv2D(filters=64, kernel_size=(3, 3),
-                        padding='same', activation='relu'))
-        model.add(Conv2D(filters=64, kernel_size=(3, 3),
-                        padding='same', activation='relu'))
+        model.add(
+            Conv2D(filters=64, kernel_size=(3, 3), padding="same", activation="relu")
+        )
+        model.add(
+            Conv2D(filters=64, kernel_size=(3, 3), padding="same", activation="relu")
+        )
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
-        model.add(Conv2D(filters=128, kernel_size=(
-            3, 3), padding='same', activation='relu'))
-        model.add(Conv2D(filters=128, kernel_size=(
-            3, 3), padding='same', activation='relu'))
->>>>>> > 156f3aaf444e265f2f0515f0e7b08b1cc2cb444a
+        model.add(
+            Conv2D(filters=128, kernel_size=(3, 3), padding="same", activation="relu")
+        )
+        model.add(
+            Conv2D(filters=128, kernel_size=(3, 3), padding="same", activation="relu")
+        )
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
         model.add(Flatten())
 
-        model.add(Dense(128, activation='relu'))
+        model.add(Dense(128, activation="relu"))
         model.add(Dropout(0.2))
         model.add(Dense(1, activation="sigmoid"))
 
         optimizer = Adam(lr=0.0001, decay=1e-5)
-        model.compile(loss="binary_crossentropy",
-                    optimizer=optimizer, metrics=["accuracy"])
+        model.compile(
+            loss="binary_crossentropy", optimizer=optimizer, metrics=["accuracy"]
+        )
 
         return model
 
@@ -277,7 +227,7 @@ class ModelTrain:
         )
         # Saving the image in png
         logging.info(f"Saving train graph at 'static/train/train_graph.png'.")
-        fig.write_image("static/train/train_graph.png")
+        fig.write_image(os.path.join("static", "train", "train_graph.png"))
 
     def shap_values(self, model):
         """
@@ -287,19 +237,19 @@ class ModelTrain:
         """
 
         logging.info(f"Creating the DeepExplainer.")
-        e = shap.DeepExplainer(model, self.X_val)
-        joblib.dump(self.X_val, 'model/shap_dataset.joblib')
+        e = shap.DeepExplainer(model, self.data.X_val)
+        joblib.dump(self.data.X_val, "model/shap_dataset.joblib")
 
         logging.info(f"Creating the shap values.")
-        shap_values = e.shap_values(self.X_val)
+        shap_values = e.shap_values(self.data.X_val)
 
         # Plot the image explaining the predictions
         logging.info(f"Creating the shap image.")
-        fig = shap.image_plot(shap_values, self.X_val, show=False)
+        fig = shap.image_plot(shap_values, self.data.X_val, show=False)
 
         # Saving the image
-        logging.info(f"Saving shap graph at 'static/train/shap_graph.png'.")
-        plt.savefig("static/train/shap_graph.png")
+        logging.info(f"Saving shap graph at 'static->train->shap_graph.png'.")
+        plt.savefig(os.path.join("static','train','shap_graph.png"))
 
 
 class ModelPredict:
@@ -323,17 +273,9 @@ class ModelPredict:
 
         # Image processing
         img = self.data.process_data(image_path, False)
-<<<<<<< HEAD
-
-        if img is False:
-            return False
-
-        img = np.array(img).reshape(1, *self.data.IMG_FORMAT)
-=======
         if img is False:
             return False
         img = np.array(img).reshape(1, *self.data.IMAGE_RESOLUTION)
->>>>>>> 156f3aaf444e265f2f0515f0e7b08b1cc2cb444a
 
         # Predicting the image
         prediction = self.model.predict(img)[0][0]
@@ -369,7 +311,7 @@ class ModelPredict:
         labels = np.array(self.define_label(prediction)).reshape(-1, 1)
 
         # Loading the validation dataset
-        dataset_shap = joblib.load("model/shap_dataset.joblib")
+        dataset_shap = joblib.load(os.path.join("model", "shap_dataset.joblib"))
 
         # DeepExplainer tensorflow
         explainer = shap.DeepExplainer(self.model, dataset_shap)
@@ -381,14 +323,16 @@ class ModelPredict:
         fig = shap.image_plot(shap_values, img, labels=labels, show=False)
 
         # Saving the image
-        plt.savefig("static/predict/shap_" + image_path)
+        plt.savefig(os.path.join("static", "predict", "shap_" + image_path))
 
 
 if __name__ == "__main__":
     """
     Model training test.
     """
+    print("Testing the training")
     test = ModelTrain()
     print(test.run())
+    print("Testing the prediction")
     test = ModelPredict()
-    print(test.predict("NORMAL2-IM-1430-0001.jpeg"))
+    print(test.predict("person1946_bacteria_4874.jpeg"))
