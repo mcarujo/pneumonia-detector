@@ -1,2 +1,269 @@
 
 
+2021-04-25 13:55:49.612 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-25 13:55:57.519 INFO app - index: Route index.
+2021-04-25 13:55:57.523 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:55:57] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 13:55:57.707 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:55:57] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:40.932 INFO app - index: Route index.
+2021-04-25 13:56:40.932 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:40] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 13:56:41.008 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:41] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:42.708 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:42] "[37mGET /dashboard HTTP/1.1[0m" 200 -
+2021-04-25 13:56:42.783 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:42] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:44.262 INFO app - index: Route index.
+2021-04-25 13:56:44.262 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:44] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 13:56:44.308 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:44] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 13:56:45.059 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 13:56:45] "[37mGET /dataset HTTP/1.1[0m" 200 -
+2021-04-25 21:35:17.242 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-25 21:35:54.914 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-25 21:37:08.880 INFO app - index: Route index.
+2021-04-25 21:37:08.886 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:08] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 21:37:08.948 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:08] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:37:09.230 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-04-25 21:37:12.652 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:12] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-25 21:37:12.830 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:12] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:37:16.457 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:16] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-25 21:37:16.471 INFO model - __init__: Initializing ModelPredict.
+2021-04-25 21:37:17.137 INFO model - predict: Predicting an image: person1947_bacteria_4876.jpeg.
+2021-04-25 21:37:17.419 INFO model - predict: The image: person1947_bacteria_4876.jpeg was predict as: 0.990409255027771.
+2021-04-25 21:37:17.419 INFO model - predict: Explaining the prediction of the image: person1947_bacteria_4876.jpeg that was predict as: 0.990409255027771.
+2021-04-25 21:37:20.488 INFO app - predict: Image : person1947_bacteria_4876.jpeg - Prediction : 0.990409255027771
+2021-04-25 21:37:20.491 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:20] "[37mGET /predict?image_path=person1947_bacteria_4876.jpeg HTTP/1.1[0m" 200 -
+2021-04-25 21:37:20.541 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:20] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:37:20.543 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:20] "[37mGET /static/predict/shap_person1947_bacteria_4876.jpeg HTTP/1.1[0m" 200 -
+2021-04-25 21:37:26.627 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:26] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-25 21:37:26.670 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:26] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:37:30.943 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:30] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-25 21:37:30.960 INFO model - __init__: Initializing ModelPredict.
+2021-04-25 21:37:31.858 INFO model - predict: Predicting an image: person1952_bacteria_4883.jpeg.
+2021-04-25 21:37:32.259 INFO model - predict: The image: person1952_bacteria_4883.jpeg was predict as: 0.741452157497406.
+2021-04-25 21:37:32.259 INFO model - predict: Explaining the prediction of the image: person1952_bacteria_4883.jpeg that was predict as: 0.741452157497406.
+2021-04-25 21:37:36.096 INFO app - predict: Image : person1952_bacteria_4883.jpeg - Prediction : 0.741452157497406
+2021-04-25 21:37:36.096 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:36] "[37mGET /predict?image_path=person1952_bacteria_4883.jpeg HTTP/1.1[0m" 200 -
+2021-04-25 21:37:36.141 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:36] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:37:36.143 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:37:36] "[37mGET /static/predict/shap_person1952_bacteria_4883.jpeg HTTP/1.1[0m" 200 -
+2021-04-25 21:38:10.534 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:38:10] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-25 21:38:10.566 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:38:10] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:38:12.293 INFO app - index: Route index.
+2021-04-25 21:38:12.294 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:38:12] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-25 21:38:12.383 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:38:12] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:38:14.641 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:38:14] "[37mGET /dataset HTTP/1.1[0m" 200 -
+2021-04-25 21:38:19.320 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:38:19] "[37mGET /dashboard HTTP/1.1[0m" 200 -
+2021-04-25 21:38:19.367 INFO _internal - _log: 192.168.0.100 - - [25/Apr/2021 21:38:19] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-25 21:38:24.249 INFO app - train: Route train.
+2021-04-25 21:38:24.249 INFO app - train: Loading the dataset tools.
+2021-04-25 21:38:24.249 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-25 21:38:24.262 INFO model - run: Runing the train process.
+2021-04-25 21:38:24.262 INFO model - run: Loading the dataset.
+2021-04-25 21:38:49.506 INFO data_processing - load_datasets: Train data shape: (5216, 250, 250, 1), Labels shape: (5216,)
+2021-04-25 21:38:49.506 INFO data_processing - load_datasets: Test data shape: (624, 250, 250, 1), Labels shape: (624,)
+2021-04-25 21:38:49.506 INFO data_processing - load_datasets: Validation data shape: (16, 250, 250, 1), Labels shape: (16,)
+2021-04-25 21:39:07.429 INFO model - run: Loading the model.
+2021-04-25 21:39:07.525 INFO model - run: Starting the fit.
+2021-04-26 00:26:19.898 INFO model - run: Generating metrics.
+2021-04-26 00:26:25.853 INFO model - run: Saving the model.
+2021-04-26 00:26:27.399 INFO builder_impl - copy_assets_to_destination_dir: Assets written to: model/assets
+2021-04-26 00:26:27.430 INFO model - run: Save the plot training.
+2021-04-26 00:26:27.490 INFO model - save_plot_training: Saving train graph at 'static/train/train_graph.png'.
+2021-04-26 00:26:28.884 INFO model - run: Using Shap to explain the predictions.
+2021-04-26 00:26:28.884 INFO model - shap_values: Creating the DeepExplainer.
+2021-04-26 00:26:29.302 INFO model - shap_values: Creating the shap values.
+2021-04-26 00:26:59.058 INFO model - shap_values: Creating the shap image.
+2021-04-26 00:27:00.184 INFO model - shap_values: Saving shap graph at 'static/train/shap_graph.png'.
+2021-04-26 00:27:00.740 INFO model - run: Returning metrics.
+2021-04-26 00:27:00.744 INFO model - generate_metrics: Training results
+2021-04-26 00:27:00.744 INFO model - generate_metrics: Accuracy -> 0.9342948717948718.
+2021-04-26 00:27:00.744 INFO model - generate_metrics: Log loss -> 0.24664201514986617.
+2021-04-26 00:27:00.744 INFO model - generate_metrics: F1 score -> 0.9494451294697904.
+2021-04-26 00:27:00.745 INFO model - generate_metrics: Precision -> 0.9144893111638955.
+2021-04-26 00:27:00.745 INFO model - generate_metrics: Recall -> 0.9871794871794872.
+2021-04-26 00:27:00.745 INFO app - train: Returning results as HTML.
+2021-04-26 00:27:00.850 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 00:27:00] "[37mGET /train HTTP/1.1[0m" 200 -
+2021-04-26 00:27:01.021 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 00:27:01] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 00:27:01.100 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 00:27:01] "[37mGET /static/train/shap_graph.png HTTP/1.1[0m" 200 -
+2021-04-26 00:27:01.101 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 00:27:01] "[37mGET /static/train/train_graph.png HTTP/1.1[0m" 200 -
+2021-04-26 16:02:02.516 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-26 16:02:59.879 INFO app - index: Route index.
+2021-04-26 16:02:59.888 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:02:59] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-26 16:02:59.954 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:02:59] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:03:00.213 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:03:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2021-04-26 16:03:26.050 INFO app - train: Route train.
+2021-04-26 16:03:26.050 INFO app - train: Loading the dataset tools.
+2021-04-26 16:03:26.050 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-26 16:03:26.104 INFO model - run: Runing the train process.
+2021-04-26 16:03:26.104 INFO model - run: Loading the dataset.
+2021-04-26 16:03:40.408 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:03:40] "[37mGET /dataset HTTP/1.1[0m" 200 -
+2021-04-26 16:03:42.345 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:03:42] "[37mGET /dashboard HTTP/1.1[0m" 200 -
+2021-04-26 16:03:42.386 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:03:42] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:03:45.226 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:03:45] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 16:03:45.264 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:03:45] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:03:48.310 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:03:48] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-26 16:03:48.323 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 16:03:51.464 INFO model - predict: Predicting an image: person1949_bacteria_4880.jpeg.
+2021-04-26 16:03:53.765 INFO model - predict: The image: person1949_bacteria_4880.jpeg was predict as: 0.6176342368125916.
+2021-04-26 16:03:53.765 INFO model - predict: Explaining the prediction of the image: person1949_bacteria_4880.jpeg that was predict as: 0.6176342368125916.
+2021-04-26 16:04:04.560 INFO data_processing - load_datasets: Train data shape: (5216, 250, 250, 1), Labels shape: (5216,)
+2021-04-26 16:04:04.560 INFO data_processing - load_datasets: Test data shape: (624, 250, 250, 1), Labels shape: (624,)
+2021-04-26 16:04:04.560 INFO data_processing - load_datasets: Validation data shape: (16, 250, 250, 1), Labels shape: (16,)
+2021-04-26 16:04:06.060 INFO app - predict: Image : person1949_bacteria_4880.jpeg - Prediction : 0.6176342368125916
+2021-04-26 16:04:06.081 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:04:06] "[37mGET /predict?image_path=person1949_bacteria_4880.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 16:04:06.120 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:04:06] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:04:06.229 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:04:06] "[37mGET /static/predict/shap_person1949_bacteria_4880.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 16:04:12.415 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:04:12] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 16:04:15.049 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:04:15] "[37mGET /dataset HTTP/1.1[0m" 200 -
+2021-04-26 16:04:16.643 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:04:16] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 16:04:16.695 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:04:16] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:04:17.264 INFO model - run: Loading the model.
+2021-04-26 16:04:17.362 INFO model - run: Starting the fit.
+2021-04-26 16:09:35.124 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:09:35] "[37mGET /dashboard HTTP/1.1[0m" 200 -
+2021-04-26 16:09:35.458 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:09:35] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:09:39.379 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:09:39] "[37mGET /dataset HTTP/1.1[0m" 200 -
+2021-04-26 16:09:43.365 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:09:43] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 16:09:43.731 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:09:43] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:15:34.349 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:15:34] "[37mGET /dataset HTTP/1.1[0m" 200 -
+2021-04-26 16:16:27.449 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:16:27] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-26 16:16:27.471 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 16:16:29.481 INFO model - predict: Predicting an image: person1947_bacteria_4876.jpeg.
+2021-04-26 16:16:30.013 INFO model - predict: The image: person1947_bacteria_4876.jpeg was predict as: 0.9975946545600891.
+2021-04-26 16:16:30.013 INFO model - predict: Explaining the prediction of the image: person1947_bacteria_4876.jpeg that was predict as: 0.9975946545600891.
+2021-04-26 16:16:35.456 INFO app - predict: Image : person1947_bacteria_4876.jpeg - Prediction : 0.9975946545600891
+2021-04-26 16:16:35.463 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:16:35] "[37mGET /predict?image_path=person1947_bacteria_4876.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 16:16:35.602 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:16:35] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:16:35.688 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:16:35] "[37mGET /static/predict/shap_person1947_bacteria_4876.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 16:31:04.646 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-26 16:31:04.743 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:31:04] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 16:31:04.990 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:31:04] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 16:31:40.009 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 16:31:40] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:12:08.678 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-26 22:21:19.672 INFO _internal - _log:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-04-26 22:22:20.796 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-26 22:22:20.963 INFO app - index: Route index.
+2021-04-26 22:22:20.968 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:20] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-26 22:22:21.164 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:21] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:22:21.334 INFO app - index: Route index.
+2021-04-26 22:22:21.334 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:21] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-26 22:22:21.463 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:21] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:22:22.900 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:22] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 22:22:23.097 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:23] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:22:25.809 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:25] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-26 22:22:25.832 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 22:22:26.552 INFO model - predict: Predicting an image: person1949_bacteria_4880.jpeg.
+2021-04-26 22:22:27.268 INFO model - predict: The image: person1949_bacteria_4880.jpeg was predict as: 0.6176342368125916.
+2021-04-26 22:22:27.269 INFO model - predict: Explaining the prediction of the image: person1949_bacteria_4880.jpeg that was predict as: 0.6176342368125916.
+2021-04-26 22:22:40.357 INFO app - predict: Image : person1949_bacteria_4880.jpeg - Prediction : 0.6176342368125916
+2021-04-26 22:22:40.359 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:40] "[37mGET /predict?image_path=person1949_bacteria_4880.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:22:40.390 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:40] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:22:40.392 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:22:40] "[37mGET /static/predict/shap_person1949_bacteria_4880.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:25:08.837 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-26 22:25:08.980 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:08] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 22:25:09.023 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:09] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:25:10.702 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:10] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 22:25:10.745 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:10] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:25:13.909 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:13] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-26 22:25:13.923 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 22:25:14.539 INFO model - predict: Predicting an image: person1949_bacteria_4880.jpeg.
+2021-04-26 22:25:14.876 INFO model - predict: The image: person1949_bacteria_4880.jpeg was predict as: 0.6176342368125916.
+2021-04-26 22:25:14.876 INFO model - predict: Explaining the prediction of the image: person1949_bacteria_4880.jpeg that was predict as: 0.6176342368125916.
+2021-04-26 22:25:20.066 INFO app - predict: Image : person1949_bacteria_4880.jpeg - Prediction : 0.6176342368125916
+2021-04-26 22:25:20.068 ERROR app - log_exception: Exception on /predict [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.7/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.7/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.7/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.7/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.7/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/carujo/pneumonia-detector/app/app.py", line 99, in predict
+    filename=image_path,
+  File "/usr/local/lib/python3.7/dist-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/usr/local/lib/python3.7/dist-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.7/dist-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/usr/local/lib/python3.7/dist-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/usr/local/lib/python3.7/dist-packages/jinja2/loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python3.7/dist-packages/jinja2/environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "/usr/local/lib/python3.7/dist-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.7/dist-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/carujo/pneumonia-detector/app/templates/predict.html", line 18, in template
+    <td>{{ accuracy|round(3)|*100 }}%</td>
+jinja2.exceptions.TemplateSyntaxError: expected token 'name', got '*'
+2021-04-26 22:25:20.069 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:20] "[35m[1mGET /predict?image_path=person1949_bacteria_4880.jpeg HTTP/1.1[0m" 500 -
+2021-04-26 22:25:43.893 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-26 22:25:46.474 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 22:25:47.118 INFO model - predict: Predicting an image: person1949_bacteria_4880.jpeg.
+2021-04-26 22:25:47.449 INFO model - predict: The image: person1949_bacteria_4880.jpeg was predict as: 0.6176342368125916.
+2021-04-26 22:25:47.449 INFO model - predict: Explaining the prediction of the image: person1949_bacteria_4880.jpeg that was predict as: 0.6176342368125916.
+2021-04-26 22:25:50.337 INFO app - predict: Image : person1949_bacteria_4880.jpeg - Prediction : 0.6176342368125916
+2021-04-26 22:25:50.341 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:50] "[37mGET /predict?image_path=person1949_bacteria_4880.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:25:50.397 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:25:50] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:25:59.554 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 22:26:00.098 INFO model - predict: Predicting an image: person1949_bacteria_4880.jpeg.
+2021-04-26 22:26:00.349 INFO model - predict: The image: person1949_bacteria_4880.jpeg was predict as: 0.6176342368125916.
+2021-04-26 22:26:00.349 INFO model - predict: Explaining the prediction of the image: person1949_bacteria_4880.jpeg that was predict as: 0.6176342368125916.
+2021-04-26 22:26:05.685 INFO app - predict: Image : person1949_bacteria_4880.jpeg - Prediction : 0.6176342368125916
+2021-04-26 22:26:05.686 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:26:05] "[37mGET /predict?image_path=person1949_bacteria_4880.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:26:05.739 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:26:05] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:26:11.543 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-26 22:26:40.349 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 22:26:40.974 INFO model - predict: Predicting an image: person1949_bacteria_4880.jpeg.
+2021-04-26 22:26:41.313 INFO model - predict: The image: person1949_bacteria_4880.jpeg was predict as: 0.6176342368125916.
+2021-04-26 22:26:41.314 INFO model - predict: Explaining the prediction of the image: person1949_bacteria_4880.jpeg that was predict as: 0.6176342368125916.
+2021-04-26 22:26:44.125 INFO app - predict: Image : person1949_bacteria_4880.jpeg - Prediction : 0.6176342368125916
+2021-04-26 22:26:44.130 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:26:44] "[37mGET /predict?image_path=person1949_bacteria_4880.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:26:44.177 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:26:44] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:26:51.945 INFO app - train: Route train.
+2021-04-26 22:26:51.945 INFO app - train: Loading the dataset tools.
+2021-04-26 22:26:51.945 INFO app - train: Creating the ModelTrain class passing the dataset as argument.
+2021-04-26 22:26:51.957 INFO model - run: Runing the train process.
+2021-04-26 22:26:51.957 INFO model - run: Loading the dataset.
+2021-04-26 22:27:46.299 INFO data_processing - load_datasets: Train data shape: (5216, 250, 250, 1), Labels shape: (5216,)
+2021-04-26 22:27:46.299 INFO data_processing - load_datasets: Test data shape: (624, 250, 250, 1), Labels shape: (624,)
+2021-04-26 22:27:46.299 INFO data_processing - load_datasets: Validation data shape: (16, 250, 250, 1), Labels shape: (16,)
+2021-04-26 22:27:47.484 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:27:47] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 22:27:47.553 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:27:47] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:27:50.769 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:27:50] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-26 22:27:50.786 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 22:27:51.837 INFO model - predict: Predicting an image: person1946_bacteria_4874.jpeg.
+2021-04-26 22:27:52.840 INFO model - predict: The image: person1946_bacteria_4874.jpeg was predict as: 0.9996834993362427.
+2021-04-26 22:27:52.840 INFO model - predict: Explaining the prediction of the image: person1946_bacteria_4874.jpeg that was predict as: 0.9996834993362427.
+2021-04-26 22:28:14.604 INFO app - predict: Image : person1946_bacteria_4874.jpeg - Prediction : 0.9996834993362427
+2021-04-26 22:28:14.612 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:28:14] "[37mGET /predict?image_path=person1946_bacteria_4874.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:28:14.737 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:28:14] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:28:14.851 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:28:14] "[37mGET /static/predict/shap_person1946_bacteria_4874.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:28:16.681 INFO model - run: Loading the model.
+2021-04-26 22:28:16.817 INFO model - run: Starting the fit.
+2021-04-26 22:28:29.410 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:28:29] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 22:28:29.738 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:28:29] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:31:32.184 INFO _internal - _log:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-04-26 22:31:47.762 INFO app - index: Route index.
+2021-04-26 22:31:47.768 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:31:47] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-26 22:31:47.831 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:31:47] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:32:39.780 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:32:39] "[37mGET /dataset HTTP/1.1[0m" 200 -
+2021-04-26 22:33:07.369 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:07] "[37mGET /dashboard HTTP/1.1[0m" 200 -
+2021-04-26 22:33:07.455 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:07] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:33:25.849 INFO app - index: Route index.
+2021-04-26 22:33:25.849 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:25] "[37mGET / HTTP/1.1[0m" 200 -
+2021-04-26 22:33:25.942 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:25] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:33:27.079 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:27] "[37mGET /form HTTP/1.1[0m" 200 -
+2021-04-26 22:33:27.243 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:27] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:33:32.419 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:32] "[32mPOST /form HTTP/1.1[0m" 302 -
+2021-04-26 22:33:32.450 INFO model - __init__: Initializing ModelPredict.
+2021-04-26 22:33:33.189 INFO model - predict: Predicting an image: person1954_bacteria_4886.jpeg.
+2021-04-26 22:33:33.814 INFO model - predict: The image: person1954_bacteria_4886.jpeg was predict as: 0.9902501106262207.
+2021-04-26 22:33:33.814 INFO model - predict: Explaining the prediction of the image: person1954_bacteria_4886.jpeg that was predict as: 0.9902501106262207.
+2021-04-26 22:33:36.830 INFO app - predict: Image : person1954_bacteria_4886.jpeg - Prediction : 0.9902501106262207
+2021-04-26 22:33:36.834 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:36] "[37mGET /predict?image_path=person1954_bacteria_4886.jpeg HTTP/1.1[0m" 200 -
+2021-04-26 22:33:37.155 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:37] "[33mGET /signin.css HTTP/1.1[0m" 404 -
+2021-04-26 22:33:37.235 INFO _internal - _log: 192.168.0.100 - - [26/Apr/2021 22:33:37] "[37mGET /static/predict/shap_person1954_bacteria_4886.jpeg HTTP/1.1[0m" 200 -

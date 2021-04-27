@@ -69,11 +69,12 @@ class ModelTrain:
         history = model.fit(
             datagen.flow(self.data.X_train, self.data.y_train, batch_size=5),
             validation_data=(self.data.X_test, self.data.y_test),
-            epochs=2,
+            epochs=50,
             verbose=1,
             callbacks=[callback],
             class_weight=class_weight,
         )
+        print(history.history)
 
         logging.info(f"Generating metrics.")
         # Predicting the classes model
@@ -248,8 +249,8 @@ class ModelTrain:
         fig = shap.image_plot(shap_values, self.data.X_val, show=False)
 
         # Saving the image
-        logging.info(f"Saving shap graph at 'static->train->shap_graph.png'.")
-        plt.savefig(os.path.join("static','train','shap_graph.png"))
+        logging.info(f"Saving shap graph at 'static/train/shap_graph.png'.")
+        plt.savefig(os.path.join("static", "train", "shap_graph.png"))
 
 
 class ModelPredict:
@@ -272,7 +273,7 @@ class ModelPredict:
         logging.info(f"Predicting an image: {image_path}.")
 
         # Image processing
-        img = self.data.process_data(image_path, False)
+        img = self.data.process_data(image_path)
         if img is False:
             return False
         img = np.array(img).reshape(1, *self.data.IMAGE_RESOLUTION)
@@ -297,6 +298,21 @@ class ModelPredict:
         """
 
         return "Predict Pneumonia" if prediction > 0.5 else "Predict Normal"
+
+    def define_info_label(self, prediction):
+        """
+        Function will get the prediction and tranform in labels.
+
+        :prediction float: The prediction probability to be Pneumonia.
+        """
+        if prediction < 0.3:
+            return "Strong Normal"
+        elif prediction < 0.5:
+            return "Weak Normal"
+        elif prediction < 0.7:
+            return "Weak Pneumonia"
+        else:
+            return "Strong Pneumonia"
 
     def shap_values(self, img, image_path, prediction):
         """
@@ -331,8 +347,8 @@ if __name__ == "__main__":
     Model training test.
     """
     print("Testing the training")
-    test = ModelTrain()
-    print(test.run())
+    # test = ModelTrain()
+    # print(test.run())
     print("Testing the prediction")
     test = ModelPredict()
     print(test.predict("person1946_bacteria_4874.jpeg"))
