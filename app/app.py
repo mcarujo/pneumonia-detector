@@ -87,12 +87,14 @@ def predict():
     model = ModelPredict()
     image_path = request.args["image_path"]
     prediction = model.predict(image_path)
+    info_label = model.define_info_label(prediction)
     if prediction:
         label = model.define_label(prediction)
         logging.info(f"Image : {image_path} - Prediction : {prediction}")
         return render_template(
             "predict.html",
-            accuracy=prediction,
+            accuracy=prediction * 100,
+            info_label=info_label,
             class_=label,
             filename=image_path,
         )

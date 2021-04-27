@@ -4,6 +4,7 @@ import os
 import cv2
 import numpy as np
 import pandas as pd
+import lungs_finder as lf
 
 
 class DataProcessing:
@@ -54,6 +55,51 @@ class DataProcessing:
                 self.X_val.shape, self.y_val.shape
             )
         )
+
+    def process_data(self, img_path):
+        """
+        This function wil get the image path, load it and then return it as object.
+
+        :img_path string: The image path.
+        :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z).
+        """
+
+        try:
+            # Read the image
+            img = cv2.imread(os.path.join("temp", img_path))
+
+            # Transform the color to grayscale
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            # Identify lungs
+            img = lf.get_lungs(img, padding=20)
+
+            # Scale the image between zero and one
+            img = img / 255.0
+
+            # Resize the image
+            img = cv2.resize(img, self.IMAGE_RESOLUTION[:2])
+
+            # Reshape the image
+            img = np.reshape(img, self.IMAGE_RESOLUTION)
+
+            return img
+        except:
+            # Read the image again
+            img = cv2.imread(os.path.join("temp", img_path))
+            # Resize the image
+            img = cv2.resize(img, self.IMAGE_RESOLUTION[:2])
+
+            # Transform the color to grayscale
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+            # Scale the image between zero and one
+            img = img / 255.0
+
+            # Reshape the image
+            img = np.reshape(img, IMAGE_RESOLUTION)
+
+            return img
 
     def load_images(self, df):
         """

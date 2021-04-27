@@ -9,12 +9,14 @@
   <thead>
     <tr>
       <th scope="col">Probability</th>
+      <th scope="col">Prediction Description</th>
       <th scope="col">Class</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>{{ accuracy }}</td>
+      <td>{{ accuracy|round(2) }} %</td>
+      <td>{{ info_label }}</td>
       <td>{{ class_ }}</td>
     </tr>
   </tbody>
