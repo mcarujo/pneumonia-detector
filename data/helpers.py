@@ -1,5 +1,5 @@
 """
-This file just to save some functions to help keep the notebooks clean.  
+This file just to save some functions to help keep the notebooks clean and be reused by the data_transformation_and_firebase.py file.  
 """
 import cv2
 import os
@@ -9,7 +9,7 @@ import lungs_finder as lf
 
 def process_data(img_path, IMAGE_RESOLUTION, BORDER):
     """
-    This function wil get the image path, load it and then return it as object.
+    This function will get the image path, load it, process it and then return it as an object.
 
     :img_path string: The image path.
     :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z).
