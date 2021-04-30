@@ -237,10 +237,12 @@ class ModelTrain:
         :model: The trained model.
         """
 
+        # Creating the DeepExplainer
         logging.info(f"Creating the DeepExplainer.")
         e = shap.DeepExplainer(model, self.data.X_val)
         joblib.dump(self.data.X_val, "model/shap_dataset.joblib")
 
+        # Generating the shap values
         logging.info(f"Creating the shap values.")
         shap_values = e.shap_values(self.data.X_val)
 
@@ -256,7 +258,7 @@ class ModelTrain:
 class ModelPredict:
     def __init__(self):
         """
-        Constructor loading model and dataset loading.
+        Constructor loading model and DataProcessing.
         """
 
         logging.info(f"Initializing ModelPredict.")
@@ -340,15 +342,3 @@ class ModelPredict:
 
         # Saving the image
         plt.savefig(os.path.join("static", "predict", "shap_" + image_path))
-
-
-if __name__ == "__main__":
-    """
-    Model training test.
-    """
-    print("Testing the training")
-    # test = ModelTrain()
-    # print(test.run())
-    print("Testing the prediction")
-    test = ModelPredict()
-    print(test.predict("person1946_bacteria_4874.jpeg"))
