@@ -2,21 +2,13 @@
 This project is the final project of my specialization in Data Science, Which used the CNN to classify chest X-ray image between healthy and pneumonia. The Model is provided in a web application where you can upload an X-Ray Image from a chest, and then receive the classification/analyzes. The whole project is a acamedic approach and should not be used by a docker or similiar person in a hospital for example.
 
 <br />
-<br />
-<br />
-<br />
 
 ## Dataset
 ![Optional Text](images/dataset_sample.png)
 
 - Source: This dataset was taken from the Kaggle platform posted here in this [link](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia).
 
-<br />
-<br />
-<br />
-<br />
-
-# Approach
+# Approach/Introduction
 
 ![Optional Text](./images/xray_cnn.png)
 
@@ -28,9 +20,7 @@ In deep learning, a convolutional neural network (CNN, or ConvNet) is a class of
 
 X-rays are a type of radiation called electromagnetic waves. X-ray imaging creates pictures of the inside of your body. The images show the parts of your body in different shades of black and white. For more information click [here](https://en.wikipedia.org/wiki/X-ray).
 <br />
-<br />
-<br />
-<br />
+
 
 # Application
 It was developed as a web application to select the X-ray images and predict them as well as train the model. You can select your X-ray image to apply and then the model will return the probability, class and explanation.
@@ -42,9 +32,7 @@ Can be used in the Dockerfile to build the environment to run the application. A
 
 
 <br />
-<br />
-<br />
-<br />
+
 
 ### Docker
 
@@ -72,11 +60,9 @@ flask run
 ```
 
 <br />
-<br />
-<br />
-<br />
 
-## User Interface
+
+### User Interface
 <br />
 <br />
 <img src="./images/screens.gif">
