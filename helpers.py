@@ -46,7 +46,7 @@ def plot_training(history, path):
         )
     )
     # Formating the graph
-    fig.update_layout(title="Training", xaxis_title="Epochs", yaxis_title="Accuracy")
+    fig.update_layout(title="CNN training curve plot.", xaxis_title="Epochs", yaxis_title="Score", title_font_size=24)
     # Saving the image in png
     fig.write_image(os.path.join(path, "train_graph.png"))
 
