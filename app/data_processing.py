@@ -2,9 +2,13 @@ import logging
 import os
 
 import cv2
+import pyrebase
 import lungs_finder as lf
 import numpy as np
 import pandas as pd
+from pathlib import Path
+
+from settings import database, firebase_config, token
 
 
 class DataProcessing:
@@ -14,9 +18,14 @@ class DataProcessing:
         """
         self.IMAGE_RESOLUTION = (250, 250, 1)
         self.BORDER = 30
-        self.transformed_path = os.path.join("..", "data")
-        DATASET_DIR = os.path.join("data", "data_image.csv")
-        self.dataset = pd.read_csv(DATASET_DIR)
+
+        if database == "FIREBASE":
+            self.path_base = 'data'
+            self.firebase = pyrebase.initialize_app(firebase_config)
+            self.download_dataset()
+        else:
+            self.transformed_path = os.path.join(
+                *("..", "data") if database == 'LOCAL' else "data")
 
     def load_datasets(self):
         """
@@ -136,3 +145,51 @@ class DataProcessing:
         img = img / 255.0
         # Return reshape as ( X, X, 1)
         return np.reshape(img, self.IMAGE_RESOLUTION)
+
+    def download_dataset_from_firebase(self, image_path, storage):
+        print(image_path)
+        try:
+            storage.child(image_path).download(
+                filename=os.path.join(self.path_base, image_path), path=os.path.join(self.path_base, image_path), token=token)
+            return True
+        except:
+            return False
+
+    def download_dataset(self):
+        storage = self.firebase.storage()
+        self.creating_folders()
+        self.download_dataset_from_firebase('data_image.csv', storage)
+        self.dataset = pd.read_csv(os.path.join("data", "data_image.csv"))
+        for img_path_transformed in self.dataset.full_path_transformed:
+            # To linux
+            aux = img_path_transformed.replace("\\", "/")
+            self.download_dataset_from_firebase(aux, storage)
+
+    def creating_folders(self):
+        transformed = "transformed"
+
+        path_train_normal = os.path.join("train", "NORMAL")
+        path_train_pneu = os.path.join("train", "PNEUMONIA")
+
+        path_test_normal = os.path.join("test", "NORMAL")
+        path_test_pneu = os.path.join("test", "PNEUMONIA")
+
+        path_val_normal = os.path.join("val", "NORMAL")
+        path_val_pneu = os.path.join("val", "PNEUMONIA")
+
+        Path(os.path.join(self.path_base, transformed, path_train_normal)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_train_pneu)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_test_normal)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_test_pneu)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_val_normal)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_val_pneu)).mkdir(
+            parents=True, exist_ok=True)
+
+
+if __name__ == "__main__":
+    dataprocessing = DataProcessing()
