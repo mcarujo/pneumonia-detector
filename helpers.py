@@ -2,6 +2,8 @@
 This file just to save some functions to help keep the notebooks clean.  
 """
 import os
+import cv2
+import numpy as np
 from plotly import figure_factory as ff
 from plotly import graph_objects as go
 from sklearn.metrics import (
@@ -44,7 +46,7 @@ def plot_training(history, path):
         )
     )
     # Formating the graph
-    fig.update_layout(title="Training", xaxis_title="Epochs", yaxis_title="Accuracy")
+    fig.update_layout(title="CNN training curve plot.", xaxis_title="Epochs", yaxis_title="Score", title_font_size=24)
     # Saving the image in png
     fig.write_image(os.path.join(path, "train_graph.png"))
 
@@ -97,3 +99,39 @@ def metrics(y_true, y_pred_class, y_pred, path):
 
     # Showing the image
     fig.show()
+
+
+def load_images(df, IMAGE_RESOLUTION):
+    """
+    This function will receive a DataFram which contains the information about the images that will be used as dataset.
+
+    :df DataFrame: This DataFrame contains information about the images that will be used as dataset, including the image path.
+    """
+
+    # A list to save the image pixels
+    data = []
+    # A list to save the image flags
+    labels = []
+
+    # A for to go through the DataFrame shuffle
+    for full_path, flag in df.sample(frac=1).values:
+        # Process the image with a auxiliary function and then save in the 'data'
+        data.append(load_image(full_path,IMAGE_RESOLUTION))
+        # Save the flag in the 'labels'
+        labels.append(flag)
+    # Return both, data and labels as numpy array
+    return np.array(data), np.array(labels)
+
+def load_image(img_path, IMAGE_RESOLUTION):
+    """
+    This function will receive an image path and return as numpy array.
+
+    :img_path string: image path.
+    """
+    # Reading the image already in transformed and using grayscaler
+    img = cv2.imread('data/' + img_path, cv2.IMREAD_GRAYSCALE
+    )
+    # Normalization
+    img = img / 255.0
+    # Return reshape as ( X, X, 1)
+    return np.reshape(img, IMAGE_RESOLUTION)

@@ -2,9 +2,13 @@ import logging
 import os
 
 import cv2
+import pyrebase
+import lungs_finder as lf
 import numpy as np
 import pandas as pd
-import lungs_finder as lf
+from pathlib import Path
+
+from settings import database, firebase_config, token
 
 
 class DataProcessing:
@@ -14,9 +18,14 @@ class DataProcessing:
         """
         self.IMAGE_RESOLUTION = (250, 250, 1)
         self.BORDER = 30
-        self.transformed_path = os.path.join("..", "data")
-        DATASET_DIR = os.path.join("data", "data_image.csv")
-        self.dataset = pd.read_csv(DATASET_DIR)
+
+        if database == "FIREBASE":
+            self.path_base = 'data'
+            self.firebase = pyrebase.initialize_app(firebase_config)
+            self.download_dataset()
+        else:
+            self.transformed_path = os.path.join(
+                *("..", "data") if database == 'LOCAL' else "data")
 
     def load_datasets(self):
         """
@@ -58,7 +67,7 @@ class DataProcessing:
 
     def process_data(self, img_path):
         """
-        This function wil get the image path, load it and then return it as object.
+        This function wil get the image path, load it, process it and then return it as object.
 
         :img_path string: The image path.
         :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z).
@@ -106,8 +115,6 @@ class DataProcessing:
         This function will receive a DataFram which contains the information about the images that will be used as dataset.
 
         :df DataFrame: This DataFrame contains information about the images that will be used as dataset, including the image path.
-        :IMAGE_RESOLUTION tuple: Tuple to define the image resolution (x, y, z).
-        :BORDER int: The pixel that will be used to cut the image.
         """
 
         # A list to save the image pixels
@@ -125,6 +132,11 @@ class DataProcessing:
         return np.array(data), np.array(labels)
 
     def load_image(self, img_path):
+        """
+        This function will receive an image path and return as numpy array.
+
+        :img_path string: image path.
+        """
         # Reading the image already in transformed and using grayscaler
         img = cv2.imread(
             os.path.join(self.transformed_path, img_path), cv2.IMREAD_GRAYSCALE
@@ -134,10 +146,50 @@ class DataProcessing:
         # Return reshape as ( X, X, 1)
         return np.reshape(img, self.IMAGE_RESOLUTION)
 
+    def download_dataset_from_firebase(self, image_path, storage):
+        print(image_path)
+        try:
+            storage.child(image_path).download(
+                filename=os.path.join(self.path_base, image_path), path=os.path.join(self.path_base, image_path), token=token)
+            return True
+        except:
+            return False
+
+    def download_dataset(self):
+        storage = self.firebase.storage()
+        self.creating_folders()
+        self.download_dataset_from_firebase('data_image.csv', storage)
+        self.dataset = pd.read_csv(os.path.join("data", "data_image.csv"))
+        for img_path_transformed in self.dataset.full_path_transformed:
+            # To linux
+            aux = img_path_transformed.replace("\\", "/")
+            self.download_dataset_from_firebase(aux, storage)
+
+    def creating_folders(self):
+        transformed = "transformed"
+
+        path_train_normal = os.path.join("train", "NORMAL")
+        path_train_pneu = os.path.join("train", "PNEUMONIA")
+
+        path_test_normal = os.path.join("test", "NORMAL")
+        path_test_pneu = os.path.join("test", "PNEUMONIA")
+
+        path_val_normal = os.path.join("val", "NORMAL")
+        path_val_pneu = os.path.join("val", "PNEUMONIA")
+
+        Path(os.path.join(self.path_base, transformed, path_train_normal)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_train_pneu)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_test_normal)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_test_pneu)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_val_normal)).mkdir(
+            parents=True, exist_ok=True)
+        Path(os.path.join(self.path_base, transformed, path_val_pneu)).mkdir(
+            parents=True, exist_ok=True)
+
 
 if __name__ == "__main__":
-    """
-    DataProcessing test.
-    """
-    data = DataProcessing()
-    data.load_datasets()
+    dataprocessing = DataProcessing()

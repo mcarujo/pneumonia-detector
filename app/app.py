@@ -4,6 +4,7 @@ import logging
 from flask import Flask, jsonify, redirect, render_template, request
 
 from model import ModelPredict, ModelTrain
+from settings import host_allowed, debug, port
 
 app = Flask(__name__)
 
@@ -15,6 +16,9 @@ logging.basicConfig(
 )
 
 
+##########################################
+###############   ROUTES   ###############
+##########################################
 @app.route("/")
 @app.route("/index")
 def index():
@@ -104,6 +108,10 @@ def predict():
         )
 
 
+##########################################
+###############   ROUTES   ###############
+##########################################
+
 if __name__ == "__main__":
 
     # parse arguments for debug mode
@@ -111,6 +119,6 @@ if __name__ == "__main__":
     ap.add_argument("-d", "--debug", action="store_true", help="debug flask")
     args = vars(ap.parse_args())
     if args["debug"]:
-        app.run(debug=True, host="0.0.0.0", port=5080)
+        app.run(debug=debug, host=host_allowed, port=port)
     else:
-        app.run(host="0.0.0.0", threaded=True, port=5080)
+        app.run(host=host_allowed, threaded=True, port=port)

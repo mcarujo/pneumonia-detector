@@ -30,12 +30,7 @@ def cnn5_ann5_fibonacci_adam(IMG_FORMAT):
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
     model.add(Dense(144, activation="relu"))
-    model.add(Dropout(0.3))
-    model.add(Dense(89, activation="relu"))
     model.add(Dropout(0.2))
-    model.add(Dense(55, activation="relu"))
-    model.add(Dense(34, activation="relu"))
-    model.add(Dropout(0.1))
     model.add(Dense(1, activation="sigmoid"))
     model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
     return model

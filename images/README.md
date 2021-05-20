@@ -1,1 +1,1 @@
-Here in this folder, I save some illustration that will be used in the repository.
+Here in this folder, I save some images/illustrations that will be used in the repository. That's it. =D
