@@ -21,6 +21,32 @@
     </tr>
   </tbody>
 </table>
+<table class="table"  style="position: absolute; width: 20%; height: 10%; bottom: 1%; right: 1%;">
+  <thead>
+    <tr>
+      <th scope="col">Description</th>
+      <th scope="col">Values - (I) Include </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Strong Normal</td>
+      <td> 0% ~ 30%</td>
+    </tr>
+      <tr>
+      <td>Weak Normal</td>
+      <td> 30%(I) ~ 50% </td>
+    </tr>
+    <tr>
+      <td>Weak Pneumonia</td>
+      <td> 50%(I) ~ 70% </td>
+    </tr>
+    <tr>
+      <td>Strong Pneumonia</td>
+      <td> 70%(I) ~ 100% </td>
+    </tr>
+  </tbody>
+</table>
 <div>
   <h4>Shap for sample {{ class_ }}.</h4>
   <img src="{{url_for('static', filename='predict/shap_'+filename)}}" />
