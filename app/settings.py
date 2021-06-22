@@ -1,4 +1,5 @@
 database = "LOCAL"
+token = ""
 firebase_config = {}
 host_allowed = "0.0.0.0"
 debug = False
