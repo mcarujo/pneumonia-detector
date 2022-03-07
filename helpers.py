@@ -122,14 +122,14 @@ def load_images(df, IMAGE_RESOLUTION):
     # Return both, data and labels as numpy array
     return np.array(data), np.array(labels)
 
-def load_image(img_path, IMAGE_RESOLUTION, pre_path='data/'):
+def load_image(img_path, IMAGE_RESOLUTION):
     """
     This function will receive an image path and return as numpy array.
 
     :img_path string: image path.
     """
     # Reading the image already in transformed and using grayscaler
-    img = cv2.imread(pre_path + img_path, cv2.IMREAD_GRAYSCALE
+    img = cv2.imread('data/' + img_path, cv2.IMREAD_GRAYSCALE
     )
     # Normalization
     img = img / 255.0
