@@ -101,10 +101,10 @@ def metrics(y_true, y_pred_class, y_pred, path):
     fig.show()
 
 
-def load_images(df, IMAGE_RESOLUTION):
+def load_images(df, IMAGE_RESOLUTION, ROOT_PATH='data/'):
     """
     This function will receive a DataFram which contains the information about the images that will be used as dataset.
-
+    ROOT_PATH defined as 'data/' due to the local project.
     :df DataFrame: This DataFrame contains information about the images that will be used as dataset, including the image path.
     """
 
@@ -116,20 +116,20 @@ def load_images(df, IMAGE_RESOLUTION):
     # A for to go through the DataFrame shuffle
     for full_path, flag in df.sample(frac=1).values:
         # Process the image with a auxiliary function and then save in the 'data'
-        data.append(load_image(full_path,IMAGE_RESOLUTION))
+        data.append(load_image(full_path,IMAGE_RESOLUTION, ROOT_PATH))
         # Save the flag in the 'labels'
         labels.append(flag)
     # Return both, data and labels as numpy array
     return np.array(data), np.array(labels)
 
-def load_image(img_path, IMAGE_RESOLUTION):
+def load_image(img_path, IMAGE_RESOLUTION, ROOT_PATH):
     """
     This function will receive an image path and return as numpy array.
 
     :img_path string: image path.
     """
     # Reading the image already in transformed and using grayscaler
-    img = cv2.imread('data/' + img_path, cv2.IMREAD_GRAYSCALE
+    img = cv2.imread(ROOT_PATH + img_path, cv2.IMREAD_GRAYSCALE
     )
     # Normalization
     img = img / 255.0
